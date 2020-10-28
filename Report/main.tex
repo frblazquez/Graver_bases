@@ -1,0 +1,78 @@
+\documentclass[xcolor={dvipsnames}]{beamer}
+
+\mode<presentation> {
+    \usepackage[utf8]{inputenc}
+    \usepackage[T1]{fontenc}
+    \usepackage[english]{babel}
+    \usepackage{csquotes}
+
+    \bibliographystyle{plain}
+
+    \usetheme{Madrid}
+    \usecolortheme{ipbutfpr}
+
+    % TODO: Go to the configuration and change the colors!
+    \setbeamertemplate{caption}[numbered]
+    \setbeamertemplate{bibliography item}{\insertbiblabel}
+    \setbeamertemplate{frametitle continuation}{\gdef\beamer@frametitle{}}
+
+    \setbeamertemplate{footline}{
+        \leavevmode%
+        \hbox{%
+            \begin{beamercolorbox}[wd=.4\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+                \usebeamerfont{author in head/foot}\insertshortauthor
+            \end{beamercolorbox}%
+            \begin{beamercolorbox}[wd=.6\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+                \usebeamerfont{title in head/foot}\insertshorttitle\hspace*{6em}
+                \insertframenumber{} / \inserttotalframenumber\hspace*{1ex}
+            \end{beamercolorbox}
+        }%
+        \vskip0pt%
+    }
+
+    \setbeamertemplate{navigation symbols}{}
+}
+
+\usepackage[language=english, style=numeric, sorting=none]{biblatex}
+\addbibresource{main.bib}
+\makeatletter
+
+\makeatother
+
+\title{Graver Basis}
+
+\author{Francisco Javier Blázquez Martínez}
+
+\institute[EPFL]{\normalsize
+    % TODO: How should this be?
+    % Prof. Friedrich Eisenbrand \\
+    % Jana Cslovjecsek \\
+
+    \begin{figure}[htb]
+        % TODO: Maybe shift it a little bit to the right
+        \centering
+        \includegraphics[width=0.49\textwidth]{images/logos/epfl_logo.png}
+    \end{figure}
+}
+
+\date{\small Chair of discrete optimization \\ November 2020}
+
+\begin{document}
+    \frame{\titlepage}
+
+    %----SLIDES----%
+    %\include{capitulos/introducao}
+    %\include{capitulos/referencial-teorico}
+    %\include{capitulos/metodologia}
+    %\include{capitulos/resultados}
+    %\include{capitulos/conclusoes}
+    %--------------%
+
+    \section{References}
+    \begin{frame}[allowframebreaks]
+        \frametitle{References}
+        \nocite{*}
+        \printbibliography
+    \end{frame}
+
+\end{document}
