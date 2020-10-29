@@ -1,29 +1,31 @@
-\documentclass[xcolor={dvipsnames}]{beamer}
+\documentclass{beamer}
 
 \mode<presentation> {
     \usepackage[utf8]{inputenc}
     \usepackage[T1]{fontenc}
     \usepackage[english]{babel}
     \usepackage{csquotes}
+    \usepackage{ragged2e} 
 
     \bibliographystyle{plain}
 
     \usetheme{Madrid}
     \usecolortheme{ipbutfpr}
 
-    % TODO: Go to the configuration and change the colors!
+    % Can change the colors at beamercolorthemeipbutfpr.sty
+    %\setbeamersize{text margin left=0.6cm,text margin right=0.6cm}
     \setbeamertemplate{caption}[numbered]
     \setbeamertemplate{bibliography item}{\insertbiblabel}
-    \setbeamertemplate{frametitle continuation}{\gdef\beamer@frametitle{}}
+    \setbeamertemplate{frametitle continuation}{\gdef\beamer@frametitle{}\justifying}
 
     \setbeamertemplate{footline}{
         \leavevmode%
         \hbox{%
-            \begin{beamercolorbox}[wd=.4\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+            \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
                 \usebeamerfont{author in head/foot}\insertshortauthor
             \end{beamercolorbox}%
-            \begin{beamercolorbox}[wd=.6\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
-                \usebeamerfont{title in head/foot}\insertshorttitle\hspace*{6em}
+            \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+                \hspace*{7em}\usebeamerfont{title in head/foot}\insertshorttitle\hspace*{7em}
                 \insertframenumber{} / \inserttotalframenumber\hspace*{1ex}
             \end{beamercolorbox}
         }%
@@ -33,15 +35,18 @@
     \setbeamertemplate{navigation symbols}{}
 }
 
+\usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage[language=english, style=numeric, sorting=none]{biblatex}
+
 \addbibresource{main.bib}
 \makeatletter
-
 \makeatother
 
-\title{Graver Basis}
+\title{\textbf{Graver Basis}}
+%\subtitle{A short story}
 
-\author{Francisco Javier Blázquez Martínez}
+\author{\textbf{Francisco Javier Blázquez Martínez}}
 
 \institute[EPFL]{\normalsize
     % TODO: How should this be?
@@ -51,15 +56,118 @@
     \begin{figure}[htb]
         % TODO: Maybe shift it a little bit to the right
         \centering
-        \includegraphics[width=0.49\textwidth]{images/logos/epfl_logo.png}
+        \includegraphics[width=0.4\textwidth]{images/logos/epfl_logo.png}
     \end{figure}
 }
 
+% TODO: Chair of discrete optimization is maybe too much
 \date{\small Chair of discrete optimization \\ November 2020}
 
 \begin{document}
+    \justifying
+    
     \frame{\titlepage}
+    
+    % TODO: Index or not necessary?
+    %\begin{frame}
+    %\frametitle{Table of Contents}
+    %\tableofcontents
+    %\end{frame}
 
+    \section{Integer Linear Programming}
+    \begin{frame}
+        \frametitle{Integer Linear Programming}
+        The underlying question is how to solve the integer linear problem (IP).
+        \begin{equation*}
+            (IP) \equiv max\{c^tx : Ax = b, l \leq x \leq u, x \in \mathbb{Z}^n \}
+        \end{equation*}
+        %\pause
+        Where $A \in \mathbb{Z}^{mxn}$, $b \in \mathbb{Z}^m$, $c \in \mathbb{Z}^n$, $l$ and $u$ lower and upper bounds for x.
+        %\pause
+        
+        \vspace{1cm}
+        \alert{IP is NP-Hard}. There are algorithms with polynomial complexity for certain IPs and there are algorithms for the general IP based on cutting plane methods, dinamic programming, lattice-basis reduction... Thanks to the study of Graver basis new algorithms have appeared improving classic techniques in certain cases. 
+        
+        
+        
+    \end{frame}
+    
+    \begin{frame}
+        \frametitle{Integer Linear Programming}
+
+    \end{frame}
+    
+    \section{Graver Basis, definition and properties}
+    \begin{frame}
+        \frametitle{Graver Basis}
+        \begin{itemize}
+            \item \textbf{Definition 1:} Two vectors $u,v \in \mathbb{R}^n$ are said to be \textbf{sign compatible} if $u_i \cdot v_i \geq 0$ for all $i \in \{1,...,n\}$
+            \vspace{0.2cm}
+            %\pause
+            \item \textbf{Definition 2:} A vector $u \in ker(A)$ is \textbf{indecomposable} if it is not the sum of two sign compatible and non zero elements in $ker(A)$.
+            %\pause
+        \end{itemize}
+        \vspace{1cm}
+        \begin{block}{Graver Basis }
+            The Graver Basis of a given matrix A is defined as the set of integral indecomposable elements in the kernel of A.
+        \end{block}
+    \end{frame}
+    
+    \begin{frame}
+        \frametitle{Graver Basis properties}
+        \begin{itemize}
+            \item \textbf{Property 1:} Every integral element in ker(A) can be expressed as positive integral linear combination of elements in GR(A).
+            \vspace{0.2cm}
+            %\pause
+            \item \textbf{Property 2:} Given z in the feasible region of an IP, z is not optimum if and only if there exists $g \in G(A)$ s.t. $c^tg > 0$ and $l \leq z + g \leq u$
+            %\pause
+        \end{itemize}
+        
+    \end{frame}
+    
+    \begin{frame}
+        \frametitle{Graver Basis bounds}
+        The \textbf{Property 2} we have seen is an optimality test which has the advantage that only needs to consider the Graver basis elements. An important 
+    \end{frame}
+    
+    \begin{frame}
+        \frametitle{Algorithm}
+        \begin{enumerate}
+            \item Given a feasible solution $z_0$
+            \item Solve the subproblem:\\
+                  $max\{c^tg : Ag = 0, l-z_0 \leq g \leq u-z_0, g \in \mathbb{Z}^n, ||g||_1 \leq ||G(A)|| \}$
+            \begin{itemize}
+                \item $g^* = 0 \implies z_0$ optimal solution.
+                \item $g^* \neq 0 \implies$ g* improvement direction, loop back to 1 with $z_1 = z_0 + \lambda \cdot g^*$ with the biggest $\lambda$ respecting the bounds.
+            \end{itemize}
+        \end{enumerate}
+    \end{frame}
+    
+    \section{N-Fold, a success example}
+    \begin{frame}
+        \frametitle{One example of success, N-Fold}
+        
+        A N-Fold IP has constriction matrix A of the form ($A_i \in \mathbb{Z}^{rxt}, B_i \in \mathbb{Z}^{sxt}$):\\
+        \begin{equation*}
+        N = 
+        \begin{pmatrix}
+        A_1 & A_2 & \cdots & A_n \\
+        B_1 & 0   & \cdots & 0 \\
+        0   & B_2 & \cdots & 0 \\
+        \vdots    & \vdots & \ddots & \vdots  \\
+        0   & 0   & \cdots & B_n 
+        \end{pmatrix}
+        \end{equation*}
+        
+        \begin{block}{N-Fold Graver basis bound}
+            For all $g \in G(A)$ $||g||_1 \leq L_B (2r\Delta L_B + 1)^r =: L_A$ 
+        \end{block}
+        
+
+    \end{frame}
+    
+    
+    
     %----SLIDES----%
     %\include{capitulos/introducao}
     %\include{capitulos/referencial-teorico}
@@ -69,7 +177,7 @@
     %--------------%
 
     \section{References}
-    \begin{frame}[allowframebreaks]
+    \begin{frame}[allowframebreaks] % Interesting option!
         \frametitle{References}
         \nocite{*}
         \printbibliography
