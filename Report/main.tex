@@ -61,7 +61,7 @@
 }
 
 % TODO: Chair of discrete optimization is maybe too much
-\date{\small Chair of discrete optimization \\ November 2020}
+\date{\small Department of discrete optimization \\ November 2020}
 
 \begin{document}
     \justifying
@@ -81,12 +81,15 @@
         \begin{equation*}
             (IP) \equiv max\{c^tx : Ax = b, l \leq x \leq u, x \in \mathbb{Z}^n \}
         \end{equation*}
-        %\pause
         Where $A \in \mathbb{Z}^{mxn}$, $b \in \mathbb{Z}^m$, $c \in \mathbb{Z}^n$, $l$ and $u$ lower and upper bounds for x.
-        %\pause
         
+        
+        \pause
         \vspace{1cm}
-        \alert{IP is NP-Hard}. There are algorithms with polynomial complexity for certain IPs and there are algorithms for the general IP based on cutting plane methods, dinamic programming, lattice-basis reduction... Thanks to the study of Graver basis new algorithms have appeared improving classic techniques in certain cases. 
+        IP is NP-Hard. There are algorithms with polynomial complexity for certain IPs and there are algorithms for the general IPs based on cutting plane methods, dinamic programming, lattice-basis reduction... 
+        
+        \vspace{0.8cm}
+        Thanks to the study of \textbf{Graver basis} new algorithms have appeared improving classic techniques in certain cases. 
         
         
         
@@ -94,6 +97,34 @@
     
     \begin{frame}
         \frametitle{Integer Linear Programming}
+        
+        \begin{columns}[T] % align columns
+        \begin{column}{.48\textwidth}
+        %\color{red}\rule{\linewidth}{4pt}
+        \begin{equation*}
+            (P1) \equiv 	\begin{array}{l}
+	                        \qquad \max \hspace{2pt}  6x + y  \vspace{4pt} \\ 
+	                        s.t: 4x + y \leq 19 \\
+	                        \qquad x + 2y \leq 31 \\
+	                        \qquad x,y\geq 0
+	                        \end{array}
+        \end{equation*}
+        \begin{itemize}
+            %\item<1-> Text visible on slide 1
+            %\item<2-> Text visible on slide 2
+            %\item<3> Text visible on slide 3
+            %\item<4-> Text visible on slide 4
+            \item Feasible region
+            \item Extreme points
+            \item Directions
+            \item Extreme directions
+        \end{itemize}
+        \end{column}%
+        \hfill%
+        \begin{column}{.48\textwidth}
+            \includegraphics[width=0.85\textwidth]{images/tmp.png}
+        \end{column}%
+        \end{columns}
 
     \end{frame}
     
@@ -107,19 +138,32 @@
             \item \textbf{Definition 2:} A vector $u \in ker(A)$ is \textbf{indecomposable} if it is not the sum of two sign compatible and non zero elements in $ker(A)$.
             %\pause
         \end{itemize}
+        
+        \pause
         \vspace{1cm}
-        \begin{block}{Graver Basis }
+        \begin{block}{Graver Basis $\equiv Gr(A)$ }
             The Graver Basis of a given matrix A is defined as the set of integral indecomposable elements in the kernel of A.
         \end{block}
     \end{frame}
     
     \begin{frame}
         \frametitle{Graver Basis properties}
+        A key concept in linear programming are the extreme directions. They are a set of directions which allow to represent every other as positive linear combination of themselves. The following property lets us think of Graver basis as the set of extreme directions for the integral case.
+        \vspace{0.5cm}
+        
         \begin{itemize}
-            \item \textbf{Property 1:} Every integral element in ker(A) can be expressed as positive integral linear combination of elements in GR(A).
+            \item \textbf{Property 1:} Every integral element in ker(A) can be expressed as positive integral linear combination of elements in $Gr(A)$.
             \vspace{0.2cm}
             %\pause
-            \item \textbf{Property 2:} Given z in the feasible region of an IP, z is not optimum if and only if there exists $g \in G(A)$ s.t. $c^tg > 0$ and $l \leq z + g \leq u$
+        \end{itemize}
+        
+        \pause
+        \vspace{0.5cm}
+        As in simplex, where we checked optimality only by analysing extreme directions, we have the analogous for integral case with Graver basis.
+        \vspace{0.5cm}
+        
+        \begin{itemize}
+            \item \textbf{Property 2:} Given z in the feasible region of an IP, z is not optimum if and only if there exists $g \in Gr(A)$ s.t. $c^tg > 0$ and $l \leq z + g \leq u$
             %\pause
         \end{itemize}
         
@@ -127,25 +171,46 @@
     
     \begin{frame}
         \frametitle{Graver Basis bounds}
-        The \textbf{Property 2} we have seen is an optimality test which has the advantage that only needs to consider the Graver basis elements. An important 
+        From the \textbf{property 2} we know that if there is no improvement direction in the Graver basis then there is no improvement direction. This allows us to restrict our search to the elements of the Graver basis. However, as computing Graver basis is a complex task, other approaches as bounding the norm of Graver basis elements have proved useful.
+        
+        \vspace{0.5cm}
+        \begin{itemize}
+            \item \textbf{Property 3:} Given $A \in \mathbb{Z}^{mxn}$ and $\Delta$ an upper bound for the absolute value of each component of $A$, for every $g \in Gr(A)$:
+            \begin{itemize}
+                \item $||g||_1 \leq m^{m/2}\Delta^m\cdot(n - m)$
+                \item $||g||_1 \leq (2m \Delta + 1)^m$
+            \end{itemize}
+            %\pause
+        \end{itemize}
+        
+        \pause
+        \vspace{0.5cm}
+        Both bounds are exponential in the general case, however, for certain matrices we'll have a much better bound which will allow us to reduce much more our problem. We denote as $||Gr(A)||$ an upper bound to the $l_1-norm$ of A's Graver basis elements.
     \end{frame}
     
     \begin{frame}
         \frametitle{Algorithm}
+        The following is a general IP algorithm. At first sight it may not seem an improvement, however, in the sub-problem the feasible region is being restricted to elements bounded by Graver basis norm, which reduces the problem considerably in certain cases. 
+        
+        \vspace{0.5cm}
+        The correctness of this algorithm is given by \textbf{property 2}. 
+        \vspace{0.5cm}
+        \begin{block}{\centering General IP algorithm using Graver basis norm}
         \begin{enumerate}
-            \item Given a feasible solution $z_0$
-            \item Solve the subproblem:\\
-                  $max\{c^tg : Ag = 0, l-z_0 \leq g \leq u-z_0, g \in \mathbb{Z}^n, ||g||_1 \leq ||G(A)|| \}$
+            \item From a feasible solution $z_i$
+            \item Find $g^*$ optimum for the sub-problem: \vspace{4pt}\\
+                  $max\{c^tg : Ag = 0, l-z_i \leq g \leq u-z_i, g \in \mathbb{Z}^n, ||g||_1 \leq ||Gr(A)|| \}$ \vspace{4pt}
             \begin{itemize}
-                \item $g^* = 0 \implies z_0$ optimal solution.
-                \item $g^* \neq 0 \implies$ g* improvement direction, loop back to 1 with $z_1 = z_0 + \lambda \cdot g^*$ with the biggest $\lambda$ respecting the bounds.
+                \item $g^* = 0 \implies z_i$ optimal solution.
+                \item $g^* \neq 0 \implies$ $g^*$ improvement direction, loop back to 1 with $z_{i+1} = z_i + \lambda \cdot g^*$ with the biggest $\lambda$ respecting the bounds.
             \end{itemize}
         \end{enumerate}
+        \end{block}
     \end{frame}
     
     \section{N-Fold, a success example}
     \begin{frame}
-        \frametitle{One example of success, N-Fold}
+        \frametitle{N-Fold, a success example}
         
         A N-Fold IP has constriction matrix A of the form ($A_i \in \mathbb{Z}^{rxt}, B_i \in \mathbb{Z}^{sxt}$):\\
         \begin{equation*}
@@ -159,10 +224,28 @@
         \end{pmatrix}
         \end{equation*}
         
+        \pause
+        \vspace{0.5cm}
+        It's possible (using Steinitz Lemma) to obtain a much tighter bound for the norm of the elements in the Graver basis than the ones mentioned before.
+        
         \begin{block}{N-Fold Graver basis bound}
-            For all $g \in G(A)$ $||g||_1 \leq L_B (2r\Delta L_B + 1)^r =: L_A$ 
+            For all $g \in Gr(N)$ $||g||_1 \leq L_B (2r\Delta L_B + 1)^r =: L_A$ where $L_B = (2s \Delta + 1)^s$
         \end{block}
         
+
+    \end{frame}
+    
+    \begin{frame}
+        \frametitle{N-Fold, a success example}
+        
+        The previous bound given is independent of the number of blocks of the N-Fold matrix as well as the number of columns of $A_i$ and $B_i$. This results in a much more restricted sub-problem for the algorithm presented before which leads to having a polynomial time (in the number of variables) for solving N-Fold IP once the block sizes are fixed.
+        
+        \vspace{0.5cm}
+        \begin{block}{N-Fold complexity}
+            The N-Fold IP can be solved in time $n^2t^2\varphi log^2nt \cdot (rs\Delta)^{O(r^2s + rs^2)} + LP$
+        \end{block}
+        
+        The proof of this can be found in \cite{EISENBRAND:2018}.
 
     \end{frame}
     
