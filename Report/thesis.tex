@@ -1,0 +1,139 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Configuration
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\degree{Double degree in Mathematics-Computer Sciences}
+\def\department{Faculty of Mathematics}
+\def\mydegrees{}
+%\def\sid{200342291}
+\def\supervisor{Jana Cslovjecksek}
+\def\assocsupervisora{Other supervisor}
+
+% Remove the optional 'logo' argument to remove the logo from the title page
+\documentclass[logo]{style/usydthesis}
+
+% Uncomment these two lines out if you want a watermark
+%\usepackage[timestamp]{draftcopy}
+%\draftcopyVersion{Printed\space}
+
+% Remove weird spaces in List of Figures
+\newcommand*{\noaddvspace}{\renewcommand*{\addvspace}[1]{}}
+\addtocontents{lof}{\protect\noaddvspace}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage[dvips]{graphics,color}
+\usepackage{amstext,amssymb,amsfonts,latexsym}
+%\usepackage[procnames]{listings2}
+%\usepackage{fancyhdr}
+%\usepackage[nolineno,norules]{lgrind}
+%\usepackage{makeidx}
+\usepackage[utf8]{inputenc}
+\usepackage{style/bib}
+\usepackage[UKenglish]{babel}
+\usepackage{csquotes}% Recommended
+\usepackage{ccicons}
+\usepackage{animate}
+\usepackage{setspace}
+\usepackage{pdfpages}% for hosting full pdf docs as in appendix
+\usepackage[pdftex,bookmarks=true]{hyperref}
+%\usepackage[xindy]{glossaries} % must be after hyperref
+\hypersetup{
+    pdfauthor = {Francisco Javier Blázquez Martínez},
+    pdftitle = {Graver Basis},
+    colorlinks,
+%    linkcolor={blue},
+%    citecolor={blue}
+    linkcolor={black},
+    citecolor={black}
+    }
+%%%%%%%%%%%%
+% Maths functions
+\def\O{\mbox{O}}
+\newcommand{\bsigma}{{\boldsymbol\sigma}}
+\newcommand{\bepsilon}{{\boldsymbol\epsilon}}
+%%%%%%%%%%%%
+% Setup
+\newenvironment{myquote}{\list{}{\leftmargin=2.5cm\rightmargin=2.5cm}\item[]}{\endlist}
+\usepackage[style=authoryear,
+            backend=biber,
+%            firstinits=true,
+%            terseinits=true,
+            uniquename=false,
+            uniquelist=false,
+            maxcitenames=2,
+            hyperref=true]{biblatex}
+\addbibresource{thesis.bib}
+\usepackage{microtype}
+%\setlength{\parskip}{3mm plus0.5mm minus0.5mm}
+%\parindent 0pt
+%\renewcommand{\thepage}{\roman{page}}
+%\makeindex
+
+%   Page size:
+\oddsidemargin=0.2in	% really +1in
+\evensidemargin=0.2in
+\textwidth=6.1in
+
+%\textheight=22cm
+%\topmargin=-1cm
+
+%%%%%%%%%%%%
+% Start
+%\input{src/glossary.tex}
+%\makeglossaries
+\begin{document}
+
+% initial page numbers:  i, ii, iii, ...
+\renewcommand{\thepage}{\roman{page}}	
+%%%%%%%%%%%%
+% Title page
+\title{{\bf\Huge Graver basis}}
+\author{Francisco Javier Blázquez Martínez}
+
+\maketitle
+\setstretch{1.5}
+
+% intro pages
+\input{src/abstract.tex}
+\input{src/thanks.tex}
+%\printglossary
+
+
+\setcounter{tocdepth}{2}
+\newpage
+\addcontentsline{toc}{chapter}{Contents}
+\tableofcontents
+\listoffigures
+%\listoftables
+
+%%%%%%%%%%%%
+% Chapters
+
+\setcounter{page}{1}
+\setcounter{chapter}{0}
+
+% main page numbers:  1, 2, 3, ...
+\renewcommand{\thepage}{\arabic{page}}	
+\setupParagraphs
+
+\input{src/introduction.tex}
+\input{src/litreview.tex}
+\input{src/methods.tex}
+\input{src/results.tex}
+\input{src/conclusion.tex}
+
+%%%%%%%%%%%%
+% End
+
+% Bibliography
+%\bibliographystyle{style/mybibstyle}
+%\bibliography{thesis}
+\printbibliography
+
+% Appendices
+%\appendix
+%\input{src/appendix.tex}
+
+\end{document}
