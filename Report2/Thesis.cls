@@ -145,36 +145,40 @@
 \newcommand*{\subject}[1]{\def\subjectname{#1}}
 \newcommand*{\keywords}[1]{\def\keywordnames{#1}}
 \newcommand*{\supervisor}[1]{\def\supname{#1}}
+\newcommand*{\director}[1]{\def\dirname{#1}}
 \examiner    {}
 \degree      {}
 \authors     {}
-\university  {\texorpdfstring{\href{https://www.auth.gr}
-                {Aristotle University of Thessaloniki}}
+\university  {\texorpdfstring{\href{https://www.epfl.ch/}
+                {École polytechnique fédérale de Lausanne}}
                 {University name}}
-\UNIVERSITY  {\texorpdfstring{\href{https://www.auth.gr}
-                {ARISTOTLE UNIVERSITY OF THESSALONIKI}}
+\UNIVERSITY  {\texorpdfstring{\href{https://www.epfl.ch/}
+                {ÉCOLE POLYTECHNIQUE FÉDÉRALE DE LAUSANNE}}
                 {UNIVERSITY NAME (IN BLOCK CAPITALS)}}
-\department  {\texorpdfstring{\href{http://www.csd.auth.gr/el/}
-                {School of Informatics}}
+\department  {\texorpdfstring{\href{https://www.epfl.ch/labs/disopt/}
+                {Chair of discrete optimization}}
                 {Department or School Name}}
-\DEPARTMENT  {\texorpdfstring{\href{http://www.csd.auth.gr/el/}
-                {SCHOOL OF INFORMATICS}}
+\DEPARTMENT  {\texorpdfstring{\href{https://www.epfl.ch/labs/disopt/}
+                {CHAIR OF DISCRETE OPTIMIZATION}}
                 {DEPARTMENT OR SCHOOL NAME (IN BLOCK CAPITALS)}}
-\group       {\texorpdfstring{\href{https://datalab.csd.auth.gr/}
-                {Datalab: Data and Web Science Lab}}
+\group       {\texorpdfstring{\href{https://www.epfl.ch/labs/disopt/}
+                {Chair of discrete optimization}}
                 {Research Group Name}}
-\GROUP       {\texorpdfstring{\href{https://datalab.csd.auth.gr/}
-                {DATALAB: DATA AND WEB SCIENCE LAB}}
+\GROUP       {\texorpdfstring{\href{https://www.epfl.ch/labs/disopt/}
+                {CHAIR OF DISCRETE OPTIMIZATION}}
                 {RESEARCH GROUP NAME (IN BLOCK CAPITALS)}}
-\faculty     {\texorpdfstring{\href{http://www.sci.auth.gr/}
-                {Faculty of Sciences}}
+\faculty     {\texorpdfstring{\href{https://www.epfl.ch/schools/sb/education/sma/}
+                {Mathematics section}}
                 {Faculty Name}}
-\FACULTY     {\texorpdfstring{\href{http://www.sci.auth.gr/}
-                {FACULTY OF SCIENCES}}
+\FACULTY     {\texorpdfstring{\href{https://www.epfl.ch/schools/sb/education/sma/}
+                {MATHEMATICS SECTION}}
                 {FACULTY NAME (IN BLOCK CAPITALS)}}
-\supervisor  {\texorpdfstring{\href{http://oswinds.csd.auth.gr/old/people-2/faculty/dr-athena-vakali/}
-                {Supervising Professor: Dr. Athena Vakali}}
-                {Supervising Proffesor's name}}               
+\director   {\texorpdfstring{\href{https://people.epfl.ch/friedrich.eisenbrand/}
+                {Project director: Dr. Friedrich Eisenbrand}}
+                {Project director}}            
+\supervisor  {\texorpdfstring{\href{https://www.epfl.ch/labs/disopt/page-10520-en-html/page-31595-en-html/jana-cslovjecsek/}
+                {Project supervisor: Jana Cslovjecsek}}
+                {Project supervisor}}     
 \addresses   {}
 \subject     {}
 \keywords    {}
@@ -193,28 +197,32 @@
     \null\vfil
     \vskip 60\p@
     \begin{center}
-        \begin{figure}
-            \centering
-            \includegraphics[scale=0.4]{Figures/Logo_AUTH}
-        \end{figure}
       \setlength{\parskip}{0pt}
-      {\large\textbf{\UNIVNAME}\par}
-      \vfill
       {\huge \bf \@title \par}
-      \vfill
-      {\LARGE by \par}
+      %\vfill
       \smallskip
+      %{\LARGE by \par}
       {\LARGE \authornames \par}
       \vfill
-      {\large A thesis submitted in partial fulfillment for the \par}
-      {\large Undergraduate degree \par}
       \bigskip
+      \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.3]{images/Logo.png}
+      \end{figure}
       \bigskip
-      {\large in the \par}
+      {\large\textbf{\UNIVNAME}\par}
+      \bigskip
+      \vfill
+      {\large Bachelor's thesis in the\par}
+      %{\large Undergraduate degree \par}
+      %\bigskip
+      %\bigskip
+      %{\large in the \par}
       {\large \facname \par}
       {\large \deptname \par}
       \bigskip
       \bigskip
+      {\large \dirname \par}
       {\large \supname \par}
       \bigskip
       \bigskip
