@@ -51,8 +51,8 @@
 
 \institute[EPFL]{\normalsize
     % TODO: How should this be?
-    % Prof. Friedrich Eisenbrand \\
-    % Jana Cslovjecsek \\
+    %Project director: Prof. Friedrich Eisenbrand \\
+    %Project supervisor: Jana Cslovjecsek \\
 
     \begin{figure}[htb]
         % TODO: Maybe shift it a little bit to the right
@@ -92,64 +92,53 @@
         $A \in \mathbb{Z}^{mxn}$, $b \in \mathbb{Z}^m$, $c \in \mathbb{Z}^n$, $l$  and $u$ lower and upper bounds for x
         \end{center}
         
-        
         %\pause
         \vspace{1cm}
         \begin{itemize}
             \item NP-Hard
-            \pause
             \item Cutting plane methods
             \item Lattice-basis reduction
             \item Dynamic programming
             \item \alert{Graver basis} techniques
         \end{itemize}
         
-        %IP is NP-Hard. There are algorithms with polynomial complexity for certain IPs and there are algorithms for the general IPs based on cutting plane methods, dinamic programming, lattice-basis reduction... 
-        
-        %\vspace{0.8cm}
-        %Thanks to the study of \textbf{Graver basis} new algorithms have appeared improving classic techniques in certain cases. 
-        
-        
+        % TODO: In case we want to add another column to the slide
+        %\begin{columns}[T] % align columns
+        %\begin{column}{.48\textwidth}
+        %\end{column}
+        %\hfill
+        %\begin{column}{.48\textwidth}
+        %\end{column}%
+        %\end{columns}
         
     \end{frame}
+    
+    % \begin{frame}
+    %     \frametitle{Integer Linear Programming}
+        
+    %     \begin{columns}[T] % align columns
+    %     \begin{column}{.48\textwidth}
+    %     %\color{red}\rule{\linewidth}{4pt}
+    %     \begin{equation*}
+    %         (P1) \equiv 	\left( \begin{array}{l}
+	   %                     \qquad \max \hspace{2pt}  6x + y  \vspace{4pt} \\ 
+	   %                     s.t: 4x + y \leq 19 \\
+	   %                     \qquad x + 2y \leq 31 \\
+	   %                     \qquad x,y\geq 0 \\
+	   %                     \qquad x,y \in \mathbb{Z}
+	   %                     \end{array} \right)
+    %     \end{equation*}
+    %     \end{column}%
+    %     \hfill%
+    %     \begin{column}{.48\textwidth}
+    %         \includegraphics[width=0.85\textwidth]{images/IP(13).png}
+    %     \end{column}%
+    %     \end{columns}
+    %     %\addtocounter{framenumber}{-1}
+    % \end{frame}
+    
     
     \begin{frame}
-        \frametitle{Integer Linear Programming}
-        
-        \begin{columns}[T] % align columns
-        \begin{column}{.48\textwidth}
-        %\color{red}\rule{\linewidth}{4pt}
-        \begin{equation*}
-            (P1) \equiv 	\left( \begin{array}{l}
-	                        \qquad \max \hspace{2pt}  6x + y  \vspace{4pt} \\ 
-	                        s.t: 4x + y \leq 19 \\
-	                        \qquad x + 2y \leq 31 \\
-	                        \qquad x,y\geq 0 \\
-	                        \qquad x,y \in \mathbb{Z}
-	                        \end{array} \right)
-        \end{equation*}
-        %\begin{itemize}
-            %\item<1-> Text visible on slide 1
-            %\item<2-> Text visible on slide 2
-            %\item<3> Text visible on slide 3
-            %\item<4-> Text visible on slide 4
-            %\item Feasible region
-            %\item Extreme points
-            %\item Directions
-            %\item Extreme directions
-        %\end{itemize}
-        \end{column}%
-        \hfill%
-        \begin{column}{.48\textwidth}
-            \includegraphics[width=0.85\textwidth]{images/IP(13).png}
-        \end{column}%
-        \end{columns}
-        
-        %\addtocounter{framenumber}{-1}
-
-    \end{frame}
-    
-        \begin{frame}
         \frametitle{Integer Linear Programming}
         
         \begin{columns}[T] % align columns
@@ -171,6 +160,7 @@
             %\item<4-> Text visible on slide 4
             \item Feasible region
             \item Extreme points
+            \item Extreme directions
             \item Optimum in extreme points
         \end{itemize}
         \end{column}%
@@ -262,7 +252,7 @@
             %\pause
         \end{itemize}
         
-        \pause
+        %\pause
         \vspace{1cm}
         \begin{block}{Graver Basis $\equiv Gr(A)$ }
             The Graver Basis of a given matrix A is defined as the set of integral indecomposable elements in the kernel of A.
@@ -285,7 +275,7 @@
         \end{itemize}
         
         
-        \pause
+        %\pause
         \vspace{0.5cm}
         \begin{itemize}
             \justifying
@@ -375,11 +365,11 @@
         %\vspace{0.5cm}
         %It's possible (using Steinitz Lemma) to obtain a much tighter bound for the norm of the elements in the Graver basis than the ones mentioned before.
         
-        \pause
+        %\pause
         \begin{block}{N-Fold Graver basis bound}
             For all $g \in Gr(N)$ $||g||_1 \leq L_B (2r\Delta L_B + 1)^r =: L_A$ where $L_B = (2s \Delta + 1)^s$
         \end{block}
-        \pause
+        %\pause
         \begin{block}{N-Fold augmentation algorithm complexity}
             The N-Fold IP can be solved in time $n^2t^2\varphi log^2nt \cdot (rs\Delta)^{O(r^2s + rs^2)} + LP$
         \end{block}
@@ -407,25 +397,98 @@
         \end{figure}
     \end{frame}
     \begin{frame}
-        \frametitle{N-Fold, improving even more}
+        \frametitle{N-Fold, solving the restricted LR}
+        \begin{block}{N-Fold restricted LR complexity}
+            The N-Fold IP restricted linear relaxation problem can be solved in time
+            \begin{equation*}
+                O(nt\cdot(s\Delta)^{O(s^2)} \cdot p(r)log^2(nt)\phi^2)
+            \end{equation*}
+        \end{block}
+        [Cslovjecsek, Eisenbrand, Weismantel 2020]
         \vspace{0.5cm}
         \begin{block}{N-Fold proximity to restricted LR}
             Let $x^*$ be an optimal vertex solution of a N-Fold IP restricted LR, then there exists an optimal solution for the N-Fold IP verifying:  
             \begin{equation*}
-                ||z^* - x^*|| \leq (rs\Delta)^{O(rs)}
+                ||z^* - x^*||_1 \leq (rs\Delta)^{O(rs)}
             \end{equation*}
         \end{block}
-        \pause
-        \vspace{0.5cm}
-        \begin{block}{N-Fold complexity}
-            The N-Fold IP can be solved in time $nt(rs\Delta)^{O(r^2s + s^2)} + LP$
-        \end{block}
         [Cslovjecsek, Eisenbrand, Weismantel 2020]
-        %\addtocounter{framenumber}{-1}
+    \end{frame}
+    \begin{frame}
+        \frametitle{N-Fold, from restricted LR to optimum}
+        First of all we see that for every $1 \leq l \leq n$:
+        \begin{align*}
+            ||x^* - z^*||_1 \leq (rs\Delta)^{O(rs)} 
+            & \implies \sum_{i=1}^l ||x_i^* - z_i^*||_1 \leq (rs\Delta)^{O(rs)}\\ 
+            & \implies \sum_{i=1}^l ||A_i(x_i^* - z_i^*)||_\infty \leq (rs\Delta)^{O(rs)}
+        \end{align*}
+        % Therefore for all $1 \leq l \leq n$ we have that:
+        % \begin{align*}
+        %     % \forall 1 \leq l \leq n
+        %     \sum_{i=0}^l ||A_i(x^* - z^*)||_\infty 
+        %     & \leq s\Delta \sum_{i=0}^l ||x^* - z^*||_\infty \\
+        %     & \leq s\Delta \sum_{i=0}^n ||x^* - z^*||_\infty \\
+        %     & \leq s\Delta (rs\Delta)^{O(rs)} = (rs\Delta)^{O(rs)}
+        % \end{align*}
+        What implies:
+        \begin{equation*}
+            % \forall 1 \leq l \leq n
+            \sum_{i=1}^l A_ix^* - (rs\Delta)^{O(rs)} \leq \sum_{i=1}^l A_iz^* \leq \sum_{i=1}^l A_ix^* + (rs\Delta)^{O(rs)} 
+            %& \leq s\Delta \sum_{i=0}^l ||x^* - z^*||_\infty \\
+            %& \leq s\Delta \sum_{i=0}^n ||x^* - z^*||_\infty \\
+            %& \leq s\Delta (rs\Delta)^{O(rs)} = (rs\Delta)^{O(rs)}
+        \end{equation*}
         
     \end{frame}
-    
-    
+    \begin{frame}
+        \frametitle{N-Fold, from restricted LR to optimum}
+        We now define the set $S_l$ as the set of $y \in \mathbb{Z}^r$ such that:
+        \begin{equation*}
+        \sum_{i=1}^l A_ix^* - (rs\Delta)^{O(rs)} \leq y \leq \sum_{i=1}^l A_ix^* + (rs\Delta)^{O(rs)} 
+        \end{equation*}
+        
+        %And the idea is that we can pose the problem of finding $z^*$ as a longest path problem in a weighted directed acyclic graph. 
+        
+        What allows us to construct the following weighted directed acyclic graph G(V,E) with vertices:
+        \begin{equation*}
+            V = \{(l,y) / y \in S_l\} \cup \{ (0,0), (n,b_0) \}
+        \end{equation*}
+        
+        And edges between (l-1,y) and (l,y') with weight the following maximum value if the problem is feasible:
+        \begin{equation*}
+            max\{c^tx_l: A_lx_l = (y'-y), B_lx_l = b_l, l \leq x_l \leq u \}
+        \end{equation*}
+        
+    \end{frame}
+    \begin{frame}
+        \frametitle{N-Fold, from restricted LR to optimum}
+        \begin{block}{Correspondence}
+            A longest path from $(0,0)$ to $(n,b_0)$ in G(V,E) corresponds to an optimal solution of the N-Fold integer program.
+        \end{block}
+        \textit{Proof:}\\
+        Every path from $(0,0)$ to $(n,b_0)$ corresponds to a feasible point verifying the proximity bound. The path cost corresponds to the objective function in this point so it's bounded by $c^tz^*$. 
+        
+        \vspace{0.3cm}
+        The optimum $z^*$ corresponds to a path from $(0,0)$ to $(n,b_0)$. If not, we could find a feasible point improving $z^*$. This means that the longest path has as weight at least $c^tz^*$.
+        
+        \vspace{0.3cm}
+        
+        
+    \end{frame}
+    \begin{frame}
+        \frametitle{N-Fold, from restricted LR to optimum}
+        \begin{itemize}
+            \item $|S_l| \leq (rs\Delta)^{O(r^2s)}$
+            \item $|V| + |E| \leq O(n(rs\Delta)^{O(r^2s)})$
+            \item The edge IP can be computed in time $t((r + s)\Delta)^{O(r + s)^2}$
+            \item Longest path problem in a acyclic digraph can be solved in linear time.
+        \end{itemize}
+        \vspace{1cm}
+        \begin{block}{N-Fold complexity}
+            The N-Fold IP can be solved in time $nt(rs\Delta)^{O(r^2s + s^2)} + RLR$
+        \end{block}
+        [Cslovjecsek, Eisenbrand, Weismantel 2020]
+    \end{frame}
     
     \section{References}
     \begin{frame}[allowframebreaks] % Interesting option!
