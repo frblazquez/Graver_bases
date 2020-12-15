@@ -6,7 +6,8 @@
     \usepackage[english]{babel}
     \usepackage{csquotes}
     \usepackage{ragged2e} 
-
+    \usepackage{pgf, tikz}
+    \usetikzlibrary{arrows, automata}
     \bibliographystyle{plain}
 
     \usetheme{Madrid}
@@ -79,7 +80,6 @@
     %\frametitle{Abstract}
     
     %In this presentation we introduce the concept of \textit{Graver basis}, their main properties, bounds, and a general IP algorithm based on these. We also introduce the N-Fold IP as an example of success applying Graver basis related techniques.
-        
     %\end{frame}
     
     \section{Integer Linear Programming}
@@ -93,7 +93,19 @@
         \end{center}
         
         %\pause
-        \vspace{1cm}
+        % \vspace{1cm}
+        % \begin{itemize}
+        %     \item NP-Hard
+        %     \item Cutting plane methods
+        %     \item Lattice-basis reduction
+        %     \item Dynamic programming
+        %     \item \alert{Graver basis} techniques
+        % \end{itemize}
+        
+        \begin{columns}[T] % align columns
+        \begin{column}{.48\textwidth}
+        %\color{red}\rule{\linewidth}{4pt}
+        %\vspace{0.5cm}
         \begin{itemize}
             \item NP-Hard
             \item Cutting plane methods
@@ -101,6 +113,13 @@
             \item Dynamic programming
             \item \alert{Graver basis} techniques
         \end{itemize}
+        \end{column}%
+        \hfill%
+        \begin{column}{.48\textwidth}
+            \includegraphics[width=0.6\textwidth]{images/IP(2).png}
+        \end{column}%
+        \end{columns}
+    
         
         % TODO: In case we want to add another column to the slide
         %\begin{columns}[T] % align columns
@@ -138,108 +157,108 @@
     % \end{frame}
     
     
-    \begin{frame}
-        \frametitle{Integer Linear Programming}
+    % \begin{frame}
+    %     \frametitle{Integer Linear Programming}
         
-        \begin{columns}[T] % align columns
-        \begin{column}{.48\textwidth}
-        %\color{red}\rule{\linewidth}{4pt}
-        \begin{equation*}
-            (P1) \equiv 	\left( \begin{array}{l}
-	                        \qquad \max \hspace{2pt}  6x + y  \vspace{4pt} \\ 
-	                        s.t: 4x + y \leq 19 \\
-	                        \qquad x + 2y \leq 31 \\
-	                        \qquad x,y\geq 0 \\
-	                        \qquad \xcancel{x,y \in \mathbb{Z}}
-	                        \end{array} \right)
-        \end{equation*}
-        \begin{itemize}
-            %\item<1-> Text visible on slide 1
-            %\item<2-> Text visible on slide 2
-            %\item<3> Text visible on slide 3
-            %\item<4-> Text visible on slide 4
-            \item Feasible region
-            \item Extreme points
-            \item Extreme directions
-            \item Optimum in extreme points
-        \end{itemize}
-        \end{column}%
-        \hfill%
-        \begin{column}{.48\textwidth}
-            \includegraphics[width=0.85\textwidth]{images/IP(3).png}
-        \end{column}%
-        \end{columns}
+    %     \begin{columns}[T] % align columns
+    %     \begin{column}{.48\textwidth}
+    %     %\color{red}\rule{\linewidth}{4pt}
+    %     \begin{equation*}
+    %         (P1) \equiv 	\left( \begin{array}{l}
+	   %                     \qquad \max \hspace{2pt}  6x + y  \vspace{4pt} \\ 
+	   %                     s.t: 4x + y \leq 19 \\
+	   %                     \qquad x + 2y \leq 31 \\
+	   %                     \qquad x,y\geq 0 \\
+	   %                     \qquad \xcancel{x,y \in \mathbb{Z}}
+	   %                     \end{array} \right)
+    %     \end{equation*}
+    %     \begin{itemize}
+    %         %\item<1-> Text visible on slide 1
+    %         %\item<2-> Text visible on slide 2
+    %         %\item<3> Text visible on slide 3
+    %         %\item<4-> Text visible on slide 4
+    %         \item Feasible region
+    %         \item Extreme points
+    %         \item Extreme directions
+    %         \item Optimum in extreme points
+    %     \end{itemize}
+    %     \end{column}%
+    %     \hfill%
+    %     \begin{column}{.48\textwidth}
+    %         \includegraphics[width=0.85\textwidth]{images/IP(3).png}
+    %     \end{column}%
+    %     \end{columns}
         
-        \addtocounter{framenumber}{-1}
+    %     \addtocounter{framenumber}{-1}
 
-    \end{frame}
+    % \end{frame}
     
-        \begin{frame}
-        \frametitle{Integer Linear Programming}
+    %     \begin{frame}
+    %     \frametitle{Integer Linear Programming}
         
-        \begin{columns}[T] % align columns
-        \begin{column}{.48\textwidth}
-        %\color{red}\rule{\linewidth}{4pt}
-        \begin{equation*}
-            (P1) \equiv 	\left( \begin{array}{l}
-	                        \qquad \max \hspace{2pt}  6x + y  \vspace{4pt} \\ 
-	                        s.t: 4x + y \leq 19 \\
-	                        \qquad x + 2y \leq 31 \\
-	                        \qquad x,y\geq 0 \\
-	                        \qquad x,y \in \mathbb{Z}
-	                        \end{array} \right)
-        \end{equation*}
-        \begin{itemize}
-            \item Feasible points
-            \item Optimum can be far from the linear relaxation solution.
-        \end{itemize}
-        \end{column}%
-        \hfill%
-        \begin{column}{.48\textwidth}
-            \includegraphics[width=0.85\textwidth]{images/IP(2).png}
-        \end{column}%
-        \end{columns}
+    %     \begin{columns}[T] % align columns
+    %     \begin{column}{.48\textwidth}
+    %     %\color{red}\rule{\linewidth}{4pt}
+    %     \begin{equation*}
+    %         (P1) \equiv 	\left( \begin{array}{l}
+	   %                     \qquad \max \hspace{2pt}  6x + y  \vspace{4pt} \\ 
+	   %                     s.t: 4x + y \leq 19 \\
+	   %                     \qquad x + 2y \leq 31 \\
+	   %                     \qquad x,y\geq 0 \\
+	   %                     \qquad x,y \in \mathbb{Z}
+	   %                     \end{array} \right)
+    %     \end{equation*}
+    %     \begin{itemize}
+    %         \item Feasible points
+    %         \item Optimum can be far from the linear relaxation solution.
+    %     \end{itemize}
+    %     \end{column}%
+    %     \hfill%
+    %     \begin{column}{.48\textwidth}
+    %         \includegraphics[width=0.85\textwidth]{images/IP(2).png}
+    %     \end{column}%
+    %     \end{columns}
         
-        \addtocounter{framenumber}{-1}
+    %     \addtocounter{framenumber}{-1}
 
-    \end{frame}
+    % \end{frame}
     
-        \begin{frame}
-        \frametitle{Integer Linear Programming}
+    %     \begin{frame}
+    %     \frametitle{Integer Linear Programming}
         
-        \begin{columns}[T] % align columns
-        \begin{column}{.48\textwidth}
-        %\color{red}\rule{\linewidth}{4pt}
-        \begin{equation*}
-            (P1) \equiv 	\left( \begin{array}{l}
-	                        \qquad \max \hspace{2pt}  6x + y  \vspace{4pt} \\ 
-	                        s.t: 4x + y \leq 19 \\
-	                        \qquad x + 2y \leq 31 \\
-	                        \qquad x,y\geq 0 \\
-	                        \qquad \xcancel{x,y \in \mathbb{Z}}
-	                        \end{array} \right)
-        \end{equation*}
-        \begin{itemize}
-            %\item<1-> Text visible on slide 1
-            %\item<2-> Text visible on slide 2
-            %\item<3> Text visible on slide 3
-            %\item<4-> Text visible on slide 4
-            \item Extreme directions: \\
-            Allow Simplex fast optimality test and finding a direction of improvement in LP. 
+    %     \begin{columns}[T] % align columns
+    %     \begin{column}{.48\textwidth}
+    %     %\color{red}\rule{\linewidth}{4pt}
+    %     \begin{equation*}
+    %         (P1) \equiv 	\left( \begin{array}{l}
+	   %                     \qquad \max \hspace{2pt}  6x + y  \vspace{4pt} \\ 
+	   %                     s.t: 4x + y \leq 19 \\
+	   %                     \qquad x + 2y \leq 31 \\
+	   %                     \qquad x,y\geq 0 \\
+	   %                     \qquad \xcancel{x,y \in \mathbb{Z}}
+	   %                     \end{array} \right)
+    %     \end{equation*}
+    %     \begin{itemize}
+    %         %\item<1-> Text visible on slide 1
+    %         %\item<2-> Text visible on slide 2
+    %         %\item<3> Text visible on slide 3
+    %         %\item<4-> Text visible on slide 4
+    %         \item Extreme directions: \\
+    %         Allow Simplex fast optimality test and finding a direction of improvement in LP. 
             
-            \vspace{0.5cm}
-            Can we do the same for IP?
-        \end{itemize}
-        \end{column}%
-        \hfill%
-        \begin{column}{.48\textwidth}
-            \includegraphics[width=0.85\textwidth]{images/IP(4).png}
-        \end{column}%
-        \end{columns}
+    %         \vspace{0.5cm}
+    %         Can we do the same for IP?
+    %     \end{itemize}
+    %     \end{column}%
+    %     \hfill%
+    %     \begin{column}{.48\textwidth}
+    %         \includegraphics[width=0.85\textwidth]{images/IP(4).png}
+    %     \end{column}%
+    %     \end{columns}
         
-        \addtocounter{framenumber}{-1}
+    %     \addtocounter{framenumber}{-1}
 
-    \end{frame}
+    % \end{frame}
 
     \section{Graver Basis, definition and properties}
     \begin{frame}
@@ -392,35 +411,48 @@
         \begin{minipage}[b]{0.45\textwidth}
             \centering
             \includegraphics[width=0.9\textwidth]{images/IP(10).png}
-            \caption{Restricted LR}
+            \caption{Restricted LR (RLR)}
         \end{minipage}
         \end{figure}
     \end{frame}
     \begin{frame}
-        \frametitle{N-Fold, solving the restricted LR}
-        \begin{block}{N-Fold restricted LR complexity}
+        \frametitle{N-Fold, resolution steps}
+        % TODO: RLR might not be the best notation
+        \begin{block}{N-Fold RLR complexity}
             The N-Fold IP restricted linear relaxation problem can be solved in time
             \begin{equation*}
-                O(nt\cdot(s\Delta)^{O(s^2)} \cdot p(r)log^2(nt)\phi^2)
+                % TODO: Can be more beautiful!
+                O(nt \cdot log^2(nt)\cdot(s\Delta)^{O(s^2)} \cdot p(r)\phi^2)
+            \end{equation*}
+        \end{block}
+        \vspace{0.5cm}
+        % TODO: Fill this block properly!
+        \begin{block}{N-Fold RLR to optimum complexity}
+            Given an optimal vertex of an N-Fold RLR, the N-Fold IP can be solved in time
+            \begin{equation*}
+                O(nt \cdot (rs\Delta)^{O(r^2s+s^2)})
             \end{equation*}
         \end{block}
         [Cslovjecsek, Eisenbrand, Weismantel 2020]
-        \vspace{0.5cm}
-        \begin{block}{N-Fold proximity to restricted LR}
-            Let $x^*$ be an optimal vertex solution of a N-Fold IP restricted LR, then there exists an optimal solution for the N-Fold IP verifying:  
+    \end{frame}
+    \begin{frame}
+        % TODO: Fancy l!
+        \frametitle{N-Fold, from RLR to optimum}
+        \begin{block}{N-Fold proximity to RLR}
+            Let $x^*$ be an optimal vertex solution of a N-Fold RLR, then there exists an optimal solution $z^*$ for the N-Fold IP verifying:  
             \begin{equation*}
                 ||z^* - x^*||_1 \leq (rs\Delta)^{O(rs)}
             \end{equation*}
         \end{block}
         [Cslovjecsek, Eisenbrand, Weismantel 2020]
-    \end{frame}
-    \begin{frame}
-        \frametitle{N-Fold, from restricted LR to optimum}
-        First of all we see that for every $1 \leq l \leq n$:
+        \vspace{0.3cm}
+        
+        % TODO: Replace the deltas!
+        We denote by $\delta := (rs\Delta)^{O(rs)}$. It's easy to see that for every $1 \leq \ell \leq n$:
         \begin{align*}
-            ||x^* - z^*||_1 \leq (rs\Delta)^{O(rs)} 
-            & \implies \sum_{i=1}^l ||x_i^* - z_i^*||_1 \leq (rs\Delta)^{O(rs)}\\ 
-            & \implies \sum_{i=1}^l ||A_i(x_i^* - z_i^*)||_\infty \leq (rs\Delta)^{O(rs)}
+            ||x^* - z||_1 \leq (rs\Delta)^{O(rs)} 
+            & \implies \sum_{i=1}^\ell ||x_i^* - z_i||_1 \leq (rs\Delta)^{O(rs)}\\ 
+            & \implies \sum_{i=1}^\ell ||A_i(x_i^* - z_i)||_\infty \leq (rs\Delta)^{O(rs)}
         \end{align*}
         % Therefore for all $1 \leq l \leq n$ we have that:
         % \begin{align*}
@@ -430,53 +462,163 @@
         %     & \leq s\Delta \sum_{i=0}^n ||x^* - z^*||_\infty \\
         %     & \leq s\Delta (rs\Delta)^{O(rs)} = (rs\Delta)^{O(rs)}
         % \end{align*}
-        What implies:
+        
+    \end{frame}
+    \begin{frame}
+        \frametitle{N-Fold, from RLR to optimum}
+        Therefore, for every feasible point z verifying the proximity bound we have:
         \begin{equation*}
             % \forall 1 \leq l \leq n
-            \sum_{i=1}^l A_ix^* - (rs\Delta)^{O(rs)} \leq \sum_{i=1}^l A_iz^* \leq \sum_{i=1}^l A_ix^* + (rs\Delta)^{O(rs)} 
+            \sum_{i=1}^\ell A_ix_i^* - (rs\Delta)^{O(rs)} \leq \sum_{i=1}^\ell A_iz_i \leq \sum_{i=1}^\ell A_ix_i^* + (rs\Delta)^{O(rs)} 
             %& \leq s\Delta \sum_{i=0}^l ||x^* - z^*||_\infty \\
             %& \leq s\Delta \sum_{i=0}^n ||x^* - z^*||_\infty \\
             %& \leq s\Delta (rs\Delta)^{O(rs)} = (rs\Delta)^{O(rs)}
         \end{equation*}
         
-    \end{frame}
-    \begin{frame}
-        \frametitle{N-Fold, from restricted LR to optimum}
-        We now define the set $S_l$ as the set of $y \in \mathbb{Z}^r$ such that:
+        We now define the set $S_\ell$ as the set of $y \in \mathbb{Z}^r$ such that:
         \begin{equation*}
-        \sum_{i=1}^l A_ix^* - (rs\Delta)^{O(rs)} \leq y \leq \sum_{i=1}^l A_ix^* + (rs\Delta)^{O(rs)} 
+        \sum_{i=1}^\ell A_ix^* - (rs\Delta)^{O(rs)} \leq y \leq \sum_{i=1}^\ell A_ix^* + (rs\Delta)^{O(rs)} 
         \end{equation*}
+        
+        
+        % \begin{itemize}
+        %     \item $|S_l| \leq (rs\Delta)^{O(r^2s)}$
+        %     \item $ \sum_{i=1}^\ell A_iz_i \in S_\ell $ $\forall 1 \leq \ell \leq n$, z feasible point in the proximity bound 
+        %     \item The last point includes also at least one optimal solution $z^*$
+        % \end{itemize}
+        
+        %TODO: Replace z* in the inequalities by z and explain that z* is there
         
         %And the idea is that we can pose the problem of finding $z^*$ as a longest path problem in a weighted directed acyclic graph. 
         
-        What allows us to construct the following weighted directed acyclic graph G(V,E) with vertices:
+    \end{frame}
+    \begin{frame}{N-Fold, from RLR to optimum}
+        % TODO: Graph, correspondence theorem, proof!
+        We can construct the following weighted directed acyclic graph G(V,E):
         \begin{equation*}
-            V = \{(l,y) / y \in S_l\} \cup \{ (0,0), (n,b_0) \}
+            V = \{(\ell,y) / y \in S_\ell\} \cup \{ (0,0), (n,b_0) \}
         \end{equation*}
         
-        And edges between (l-1,y) and (l,y') with weight the following maximum value if the problem is feasible:
+        And edges between $(\ell-1,y)$ and $(\ell,y')$ with weight the following maximum value if the problem is feasible:
         \begin{equation*}
-            max\{c^tx_l: A_lx_l = (y'-y), B_lx_l = b_l, l \leq x_l \leq u \}
+            max\{c^tx_\ell: A_lx_\ell = (y'-y), B_\ell x_\ell = b_\ell, l_\ell \leq x_\ell \leq u_\ell \}
         \end{equation*}
         
+        \begin{block}{Space for graph plot}
+            \vspace{2cm}
+        \end{block}
     \end{frame}
     \begin{frame}
-        \frametitle{N-Fold, from restricted LR to optimum}
+        \frametitle{N-Fold, from RLR to optimum}
         \begin{block}{Correspondence}
             A longest path from $(0,0)$ to $(n,b_0)$ in G(V,E) corresponds to an optimal solution of the N-Fold integer program.
         \end{block}
-        \textit{Proof:}\\
-        Every path from $(0,0)$ to $(n,b_0)$ corresponds to a feasible point verifying the proximity bound. The path cost corresponds to the objective function in this point so it's bounded by $c^tz^*$. 
         
-        \vspace{0.3cm}
-        The optimum $z^*$ corresponds to a path from $(0,0)$ to $(n,b_0)$. If not, we could find a feasible point improving $z^*$. This means that the longest path has as weight at least $c^tz^*$.
+        % \begin{block}{Space for graph plot}
+        %     \vspace{2cm}
+        % \end{block}
         
-        \vspace{0.3cm}
+        % \textit{Proof:}\\
+        % Every path from $(0,0)$ to $(n,b_0)$ corresponds to a feasible point verifying the proximity bound. The path cost corresponds to the objective function in this point so it's bounded by $c^tz^*$. 
         
+        % \vspace{0.3cm}
+        % The optimum $z^*$ corresponds to a path from $(0,0)$ to $(n,b_0)$. If not, we could find a feasible point improving $z^*$. This means that the longest path has as weight at least $c^tz^*$.
+        
+        % \vspace{0.3cm}
+    \begin{center}
+    \begin{tikzpicture}[
+            > = stealth, % arrow head style
+            shorten > = 1pt, % don't touch arrow head to node
+            auto,
+            node distance = 3cm, % distance between nodes
+            semithick % line style
+        ]
+
+        \tikzstyle{every state}=[
+            draw = black,
+            thick,
+            fill = white,
+            minimum size = 4mm
+        ]
+
+        \node[state, minimum size=0.8cm] (s) at (0,0) {$0$};
+        
+        \node[state] (u1) at (2,0)  {$0$};
+        \node[state] (v1) at (2,-2) {$0$};
+        \node[state] (w1) at (2,2)  {$0$};
+        
+        %\node (u2) at (4,0)  {$\sum_{i=1}^\ell A_ix^*$};
+        \node[state] (u2) at (4,0)  {$0$};
+        \node[state] (v2) at (4,-2) {$0$};
+        \node[state] (w2) at (4,2)  {$0$};
+        
+        \node[state] (u3) at (6,0)  {$0$};
+        \node[state] (v3) at (6,-2) {$0$};
+        \node[state] (w3) at (6,2)  {$0$};
+        
+        \node[state] (u4) at (8,0)  {$0$};
+        \node[state] (v4) at (8,-2) {$0$};
+        \node[state] (w4) at (8,2)  {$0$};
+        
+        \node[state, minimum size=0.8cm] (f) at (10,0)  {$b_0$};
+        
+        \path[->] (s) edge node {$c^tx_1^*$} (v1);
+        \path[->] (v1) edge node {$c^tx_2^*$} (w2);
+        \path[->] (w2) edge node {$c^tx_3^*$} (u3);
+        \path[->] (u3) edge node {$c^tx_4^*$} (w4);
+        \path[->] (w4) edge node {$c^tx_5^*$} (f);
+
+
+        \draw[red, dashed] (1, 3) -- (1, -3);
+        \draw[red, dashed] (3, 3) -- (3, -3);
+        \draw[red, dashed] (5, 3) -- (5, -3);
+        \draw[red, dashed] (7, 3) -- (7, -3);
+        \draw[red, dashed] (9, 3) -- (9, -3);
+        
+        % \node (S1) at (2,-3.5) {$S_1$};
+        % \node (S2) at (4,-3.5) {$S_2$};
+        % \node (S3) at (6,-3.5) {$S_3$};
+        % \node (S4) at (8,-3.5) {$S_4$};
+    \end{tikzpicture}
+    \end{center}
         
     \end{frame}
+    % \begin{frame}
+    % \begin{tikzpicture}[
+    %         > = stealth, % arrow head style
+    %         shorten > = 1pt, % don't touch arrow head to node
+    %         auto,
+    %         node distance = 3cm, % distance between nodes
+    %         semithick % line style
+    %     ]
+
+    %     \tikzstyle{every state}=[
+    %         draw = black,
+    %         thick,
+    %         fill = white,
+    %         minimum size = 4mm
+    %     ]
+
+    %     \node[state] (s) {$(0,0)$};
+    %     \node[state] (v1) [above right of=s] {$v_1$};
+    %     %\node[state] (v2) [right of=s] {$v_2$};
+    %     \node[state] (v3) [below right of=s] {$v_2$};
+    %     \node[state] (t) [right of=v2] {$t$};
+
+    %     \path[->] (s) edge node {18} (v1);
+    %     %\path[->] (s) edge node {1} (v2);
+    %     \path[->] (s) edge node {1} (v3);
+    %     %\path[->] (v2) edge node {2} (v1);
+    %     %\path[->] (v3) edge node {1} (v2);
+    %     \path[->] (v1) edge node {20} (t);
+
+    %     \draw[red, dashed] (1, 3) -- (1, -3);
+    % \end{tikzpicture}
+    % \end{frame}
+    
+    
     \begin{frame}
-        \frametitle{N-Fold, from restricted LR to optimum}
+        \frametitle{N-Fold, from RLR to optimum}
         \begin{itemize}
             \item $|S_l| \leq (rs\Delta)^{O(r^2s)}$
             \item $|V| + |E| \leq O(n(rs\Delta)^{O(r^2s)})$
@@ -498,3 +640,4 @@
     \end{frame}
 
 \end{document}
+
