@@ -1,0 +1,35 @@
+\chapter{Introduction} \label{introduction}
+
+% Present the IP problem
+The underlying problem we try to solve is the clasical \textit{Integer program} (IP) that we formulate in the following way:
+\begin{equation*}
+    (IP) \equiv max\{c^tx : Ax = b, l \leq x \leq u, x \in \mathbb{Z}^n \}
+\end{equation*}
+\vspace{-50pt}
+\begin{center}
+$A \in \mathbb{Z}^{mxn}$, $b \in \mathbb{Z}^m$, $c \in \mathbb{Z}^n$, $l$  and $u$ lower and upper bounds for x
+\end{center}
+
+% TODO - ADD:
+% Simplicity: Not allowing non-linear restrictions/objective functions
+% Powerful: Lot of applications, many problems admit IP formulation
+% Problem: Is NP-Complete
+% Solution (+-): Techniques for certain IPs, GRAVER BASIS!
+% N-Fold: As a success example
+
+Despite its simplicity, it's well known the importance of IP. Several problems in diverse fields of the mathematics and algorithms admit an IP equivalent formulation (examples?). Unfortunately, IP is NP-Complete. This means that there is no efficient (polynomial) algorithm for solving IP in the general case (say general techniques and complexity?) and, therefore, knowing their importance and the lack of a general efficient algorithm for their resolution, there has been a great interest in restricted formulations of the problem and their resolution techniques.
+
+In this project we present the concept of \textbf{Graver Basis} and its applications for solving the IP with, of course, the theoretical justification of this based on its properties. We apply this to a concrete IP formulation, the N-Fold IP and prove that it leads to a polynomial and efficient algorithm for this case.
+
+
+
+
+
+
+
+
+
+
+
+
+
