@@ -1,0 +1,68 @@
+\chapter{Graver Basis} \label{literature}
+
+%\definition  % This also works
+\begin{definition}
+Two vectors $u,v \in \mathbb{R}^n$ are said to be \textbf{sign compatible} if $u_i \cdot v_i \geq 0$ for all $i \in \{1,...,n\}$.
+\end{definition}
+
+\begin{definition}
+A vector $u \in ker(A)$ is \textbf{indecomposable} if it is not the sum of two sign compatible and non zero elements in $ker(A)$.
+\end{definition}
+
+\begin{definition}[\textbf{Graver basis}]
+The Graver Basis of a given matrix $A \in \mathbb{Z}^{mxn}$ is defined as the set of integral indecomposable elements in the kernel of A.\\
+(Initially defined as \textit{universal integral test set} in [Graver 1975])
+\end{definition}
+
+
+% \textbf{Graver basis definition}
+% \begin{itemize}
+%     \item \textbf{Definition:}
+%     Two vectors $u,v \in \mathbb{R}^n$ are said to be \textbf{sign compatible} if $u_i \cdot v_i \geq 0$ for all $i \in \{1,...,n\}$.
+%     \vspace{0.2cm}
+%     \item \textbf{Definition:} A vector $u \in ker(A)$ is \textbf{indecomposable} if it is not the sum of two sign compatible and non zero elements in $ker(A)$.
+%     \item \textbf{Graver Basis $\equiv Gr(A)$: }
+%     The Graver Basis of a given matrix A is defined as the set of integral indecomposable elements in the kernel of A.\\
+%     (Initially defined as \textit{universal integral test set} in [Graver 1975])
+% \end{itemize}
+
+\begin{proposition}
+For every matrix A, $Gr(A)$ is a finite set.
+\end{proposition}
+
+\begin{proposition}
+Every integral element in ker(A) can be expressed as positive integral linear combination of elements in $Gr(A)$.
+\end{proposition}
+
+\begin{proposition}
+Given z in the feasible region of an IP, z is not optimum if and only if there exists $g \in Gr(A)$ s.t. $c^tg > 0$ and $l \leq z + g \leq u$
+\end{proposition}
+
+\begin{proposition}[\textbf{Graver basis bounds}]
+Given $A \in \mathbb{Z}^{mxn}$ and $\Delta$ an upper bound for the absolute value of each component of $A$, for every $g \in Gr(A)$:
+\begin{itemize}
+    \item $||g||_1 \leq m^{m/2}\Delta^m\cdot(n - m)$ \hspace{10pt}[Onn 2010]
+    \item $||g||_1 \leq (2m \Delta + 1)^m$ \hspace{41pt}[Eisenbrand,Hunkenschröder,Klein 2018]
+\end{itemize}
+\end{proposition}
+
+\textbf{Bases of augmentation algorithm}
+\begin{itemize}
+    \item If not optimal, an element in Graver basis is an improvement direction.
+    \item If Graver basis bounded, we can restrict our improvement direction search.
+\end{itemize}
+
+\textbf{General IP algorithm using Graver basis norm bound}
+\begin{enumerate}
+    \item From a feasible solution $z_i$
+    \item Find $g^*$ optimum for the sub-problem: \vspace{4pt}\\
+          $max\{c^tg : Ag = 0, l-z_i \leq g \leq u-z_i, g \in \mathbb{Z}^n, ||g||_1 \leq ||Gr(A)|| \}$ \vspace{4pt}
+    \begin{itemize}
+        \item $g^* = 0 \implies z_i$ optimal solution.
+        \item $g^* \neq 0 \implies$ $g^*$ improvement direction, loop back to 1 with $z_{i+1} = z_i + \lambda \cdot g^*$ with the biggest $\lambda$ respecting the bounds.
+    \end{itemize}
+\end{enumerate}
+\hspace{15pt} [Hemmecke, Onn, Romanchuk 2013]
+
+
+        
