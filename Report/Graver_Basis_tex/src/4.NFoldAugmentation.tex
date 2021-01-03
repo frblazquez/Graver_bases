@@ -1,0 +1,21 @@
+\chapter{N-Fold augmentation algorithm} \label{framework}
+
+
+%\vspace{0.5cm}
+
+\begin{itemize}
+        \item \textbf{Steinitz Lemma}\\
+            Let $v_1,...,v_n$ be vectors with $||v_i|| \leq \Delta$ for $i = 1,...,n$. If $\sum_{i=1}^{n} v_i = 0$, then there is a reordering $\pi \in S_n$ such that for each $k \in \{1,...,n\}$ the partial sum $p_k := \sum_{i=1}^{k}v_{\pi(i)}$ satisfies $||p_k|| \leq n\Delta$.
+\end{itemize}
+
+It's possible (using Steinitz Lemma) to obtain a much tighter bound for the norm of the elements in the Graver basis than the ones mentioned before. This implies a restriction in the space of search for the improvement direction in the augmentation algorithm making it much faster.
+
+\begin{itemize}
+        \item \textbf{N-Fold Graver basis bound}\\
+            For all $g \in Gr(N)$ $||g||_1 \leq L_B (2r\Delta L_B + 1)^r =: L_A$ where $L_B = (2s \Delta + 1)^s$
+        \item \textbf{N-Fold augmentation algorithm complexity}\\
+            The N-Fold IP can be solved in time $(nt)^2 log^2(nt) \cdot \varphi (rs\Delta)^{O(r^2s + rs^2)} + LP$
+\end{itemize}
+\hspace{15pt} [Eisenbrand, Hunkenschröder, Klein 2018]
+        
+        
