@@ -1,0 +1,44 @@
+\chapter{N-Fold via LP rounding} \label{platform}
+
+\textbf{N-Fold resolution via RLR}
+\begin{itemize}
+\item \textbf{N-Fold RLR complexity}\\
+    The N-Fold IP restricted linear relaxation problem can be solved in time
+    \begin{equation*}
+        O(nt \cdot log^2(nt) \cdot \varphi p(r) (s\Delta)^{O(s^2)})
+    \end{equation*}
+\item \textbf{N-Fold RLR to optimum complexity}\\
+    Given an optimal vertex of an N-Fold RLR, the N-Fold IP can be solved in time
+    \begin{equation*}
+        O(nt \cdot (rs\Delta)^{O(r^2s+s^2)})
+    \end{equation*}
+\end{itemize}
+\hspace{15pt}[Cslovjecsek, Eisenbrand, Weismantel 2020]
+        
+        
+\textbf{N-Fold from RLR to optimum}    
+\begin{itemize}
+\item \textbf{N-Fold proximity to RLR} \\
+    Let $x^*$ be an optimal vertex solution of a N-Fold RLR, then there exists an optimal solution $z^*$ for the N-Fold IP verifying:  
+    \begin{equation*}
+        ||z^* - x^*||_1 \leq (rs\Delta)^{O(rs)}
+    \end{equation*}
+\end{itemize}
+\hspace{15pt}[Cslovjecsek, Eisenbrand, Weismantel 2020]
+
+\newpage
+\textbf{Facts for N-Fold complexity}
+\begin{itemize}
+    \item $|S_l| \leq (rs\Delta)^{O(r^2s)}$
+    \item $|V| + |E| \leq O(n(rs\Delta)^{O(r^2s)})$
+    \item The edge IP can be computed in time $t((r + s)\Delta)^{O(r + s)^2}$
+    \item Longest path problem in a acyclic digraph can be solved in linear time.
+\end{itemize}
+
+\textbf{N-Fold complexity}
+\begin{itemize}
+\item \textbf{N-Fold complexity}\\
+    The N-Fold IP can be solved in time $nt(rs\Delta)^{O(r^2s + s^2)} + RLR$
+\end{itemize}
+\hspace{15pt}[Cslovjecsek, Eisenbrand, Weismantel 2020]
+
