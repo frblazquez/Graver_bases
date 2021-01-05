@@ -5,6 +5,7 @@
 Two vectors $u,v \in \mathbb{R}^n$ are said to be \textbf{sign compatible} if $u_i \cdot v_i \geq 0$ for all $i \in \{1,...,n\}$.
 \end{definition}
 
+% TODO: Indecomposable =?= minimal 
 \begin{definition}
 A vector $u \in ker(A)$ is \textbf{indecomposable} if it is not the sum of two sign compatible and non zero elements in $ker(A)$.
 \end{definition}
@@ -26,6 +27,7 @@ The Graver Basis of a given matrix $A \in \mathbb{Z}^{mxn}$ is defined as the se
 %     (Initially defined as \textit{universal integral test set} in [Graver 1975])
 % \end{itemize}
 
+% TODO: Proofs?
 \begin{proposition}
 For every matrix A, $Gr(A)$ is a finite set.
 \end{proposition}
@@ -37,6 +39,23 @@ Every integral element in ker(A) can be expressed as positive integral linear co
 \begin{proposition}
 Given z in the feasible region of an IP, z is not optimum if and only if there exists $g \in Gr(A)$ s.t. $c^tg > 0$ and $l \leq z + g \leq u$
 \end{proposition}
+
+% TODO: Take references from De Loera et al. 2006!
+\textbf{General IP algorithm using Graver basis}
+\begin{enumerate}
+    \item From a feasible solution $z_i$
+    \item Find $g^*$ optimum for the sub-problem: \vspace{4pt}\\
+          $max\{c^tg : g \in Gr(A), l \leq z_i + g \leq u \}$ \vspace{4pt}
+    \begin{itemize}
+        \item $c^tg^* \leq 0 \implies z_i$ optimal solution.
+        \item $c^tg^* > 0 \implies$ $g^*$ improvement direction, loop back to 1 with $z_{i+1} = z_i + \lambda \cdot g^*$ with the biggest $\lambda$ respecting the bounds.
+    \end{itemize}
+\end{enumerate}
+\hspace{15pt} [References??]
+
+% TODO: Problem, requires Graver Basis computation!
+
+\section{Graver Basis $\ell_1$-norm bounds}
 
 \begin{proposition}[\textbf{Graver basis bounds}]
 Given $A \in \mathbb{Z}^{mxn}$ and $\Delta$ an upper bound for the absolute value of each component of $A$, for every $g \in Gr(A)$:
@@ -64,5 +83,7 @@ Given $A \in \mathbb{Z}^{mxn}$ and $\Delta$ an upper bound for the absolute valu
 \end{enumerate}
 \hspace{15pt} [Hemmecke, Onn, Romanchuk 2013]
 
+% TODO: Solution, doesn't require Graver Basis computation
+% TODO: Problem, not good bounds for the general case, no improvement
 
         

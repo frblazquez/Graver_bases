@@ -21,4 +21,31 @@ B_1 & 0   & \cdots & 0 \\
 % Steinitz Lemma? Or beter in next section?
 % Theoretical justification of N-Fold being polynomially solvable
 
+% TODO - DOUBT:
+% I think this propositions are not working for the generalized N-Fold!!
 
+% TODO: 
+% General algorithm, maybe it should go to the previous section
+% Explain that the trick is that the Graver basis of A is a parameter
+\begin{proposition}
+There is a polynomial time algorithm that, given any matrix $A \in \mathbb{Z}^{m \times n}$ along with its Graver Basis $G(A)$, and vectors $x \in \mathbb{N}^n$ and $c \in \mathbb{Z}^n$ solves the integer program $IP_A(b,c)$. 
+\end{proposition}
+
+\begin{proposition}
+Fix any pair of integer matrices $A \in \mathbb{Z}^{r \times q}$ and $B \in \mathbb{Z}^{s \times q}$. Then there is a polynomial time algorithm that, given n, computes the Graver basis of the N-Fold matrix $[A,B]^{(n)}$. In particular, the cardinality and the bit size of $G([A, B]^(n))$ are bounded by a polynomial function of n.
+\end{proposition}
+
+\begin{proposition}
+Fix any pair of integer matrices $A \in \mathbb{Z}^{r \times q}$ and $B \in \mathbb{Z}^{s \times q}$. Then there is a polynomial time algorithm that, given n, objective vector $c \in \mathbb{Z}^{nq}$, and non-negative integer vector $x \in \mathbb{Z}^{nq}$ , solves the generalized N-Fold integer programming problem in which x is feasible.
+\end{proposition}
+
+\begin{proposition}
+Fix any pair of integer matrices $A \in \mathbb{Z}^{r \times q}$ and $B \in \mathbb{Z}^{s \times q}$. Then there is a polynomial time algorithm that, given n and demand vector $b \in \mathbb{Z}^{s + nr}$, either finds a feasible point $x \in \mathbb{N}^{nq}$ to the N-Fold IP of order n, or asserts that no feasible solution exists.
+\end{proposition}
+
+
+\begin{theorem}[\textbf{N-Fold IP is polynomially solvable}]
+Fix any pair of integer matrices A, B of compatible sizes. Then there is a polynomial time algorithm that solves the generalized n-fold integer programming problem on any input n, b, c.
+\end{theorem}
+
+% TODO: No clear this part at all!
