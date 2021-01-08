@@ -1,4 +1,6 @@
-\chapter{N-Fold} \label{methodology}
+\chapter{N-Fold IP} \label{methodology}
+
+\lhead{\emph{N-Fold IP}}  % Set the left side page header to "Contents"
 
 % De Loera, Hemmecke, Onn and Weismantel 2006 paper
 
@@ -27,9 +29,16 @@ B_1 & 0   & \cdots & 0 \\
 % TODO: 
 % General algorithm, maybe it should go to the previous section
 % Explain that the trick is that the Graver basis of A is a parameter
-\begin{proposition}
-There is a polynomial time algorithm that, given any matrix $A \in \mathbb{Z}^{m \times n}$ along with its Graver Basis $G(A)$, and vectors $x \in \mathbb{N}^n$ and $c \in \mathbb{Z}^n$ solves the integer program $IP_A(b,c)$. 
-\end{proposition}
+
+
+% Moved to greedy augmentation algorithm in section 2!
+%\begin{proposition}
+%There is a polynomial time algorithm that, given any matrix $A \in \mathbb{Z}^{m \times n}$ along with its Graver Basis $G(A)$, and vectors $x \in \mathbb{N}^n$ and $c \in \mathbb{Z}^n$ solves the integer program $IP_A(b,c)$. 
+%\end{proposition}
+
+The N-Fold IP has a withe range of applications in ... (See that transportation problems etc admit N-Fold formulation!). It's also very interesting by itself by the theoretical properties it has.
+
+\section{N-Fold properties}
 
 \begin{proposition}
 Fix any pair of integer matrices $A \in \mathbb{Z}^{r \times q}$ and $B \in \mathbb{Z}^{s \times q}$. Then there is a polynomial time algorithm that, given n, computes the Graver basis of the N-Fold matrix $[A,B]^{(n)}$. In particular, the cardinality and the bit size of $G([A, B]^(n))$ are bounded by a polynomial function of n.

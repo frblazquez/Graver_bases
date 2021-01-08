@@ -1,44 +1,64 @@
-\chapter{Graver Basis} \label{literature}
+\chapter{Graver bases} \label{literature}
 
-%\definition  % This also works
-\begin{definition}
-Two vectors $u,v \in \mathbb{R}^n$ are said to be \textbf{sign compatible} if $u_i \cdot v_i \geq 0$ for all $i \in \{1,...,n\}$.
-\end{definition}
+\lhead{\emph{Graver bases}}  % Set the left side page header
 
-% TODO: Indecomposable =?= minimal 
-\begin{definition}
-A vector $u \in ker(A)$ is \textbf{indecomposable} if it is not the sum of two sign compatible and non zero elements in $ker(A)$.
-\end{definition}
+%\begin{definition}
+%Two vectors $u,v \in \mathbb{R}^n$ are said to be \textbf{sign compatible} if $u_i \cdot v_i \geq 0$ for all $i \in \{1,...,n\}$, i.e. they have the same sign componentwise.
+%\end{definition}
+
+Before introducing the concept of Graver basis of a matrix, we define a partial order $\sqsubseteq$ in $\mathbb{R}^n$ by $u \sqsubseteq v$ if $u_i \cdot v_i \geq 0$ and $|u_i| \leq |v_i|$ for all i. Note that the condition $u_i \cdot v_i \geq 0$ means that $\sqsubseteq$ can only compare vectors with the same sign componentwise. The Graver basis of a matrix is the set of minimal elements (for this order $\sqsubseteq$) in its integral kernel excluding zero. Formally: 
 
 \begin{definition}[\textbf{Graver basis}]
-The Graver Basis of a given matrix $A \in \mathbb{Z}^{mxn}$ is defined as the set of integral indecomposable elements in the kernel of A.\\
-(Initially defined as \textit{universal integral test set} in [Graver 1975])
+The Graver basis ($\mathcal{G}(A)$) of a given matrix $A \in \mathbb{Z}^{mxn}$ is defined as the set of $\sqsubseteq$-minimal elements in $\{z \in \mathbb{Z}^n: Az = 0, z\neq0\}$.%$ker(A) \setminus \{0\}$.\\
 \end{definition}
 
+Graver bases were initially defined as \textit{universal integral test set} in \cite{GRAVER:1975} by Jack. E. Graver, in 1975. They often appear also defined in an equivalent way as the nonzero indecomposable elements in $ker(A)$. Indecomposable in the sense that they can not be expressed as the sum of two vectors with the same sign componentwise. It's easy to see the equivalence of both definitions.
 
-% \textbf{Graver basis definition}
-% \begin{itemize}
-%     \item \textbf{Definition:}
-%     Two vectors $u,v \in \mathbb{R}^n$ are said to be \textbf{sign compatible} if $u_i \cdot v_i \geq 0$ for all $i \in \{1,...,n\}$.
-%     \vspace{0.2cm}
-%     \item \textbf{Definition:} A vector $u \in ker(A)$ is \textbf{indecomposable} if it is not the sum of two sign compatible and non zero elements in $ker(A)$.
-%     \item \textbf{Graver Basis $\equiv Gr(A)$: }
-%     The Graver Basis of a given matrix A is defined as the set of integral indecomposable elements in the kernel of A.\\
-%     (Initially defined as \textit{universal integral test set} in [Graver 1975])
-% \end{itemize}
+%\begin{definition}
+%A vector $u \in ker(A)$ is \textbf{indecomposable} if it is not the sum of two sign compatible and non zero elements in $ker(A)$.
+%\end{definition}
 
-% TODO: Proofs?
+%\begin{definition}[\textbf{Graver basis}]
+%The Graver Basis of a given matrix $A \in \mathbb{Z}^{mxn}$ is defined as the set of integral indecomposable elements in the kernel of A.\\
+%(Initially defined as \textit{universal integral test set} in [Graver 1975])
+%\end{definition}
+
+%The equivalence of both definitions is clear since decomposing a vector as the sum of two sign compatible nonzero elements $v_1, v_2$ implies that it's not minimal as $v_1, v_2$ are lower.
+
+%\section{Graver Basis properties}
+Now that Graver bases are formally defined, we present their main properties in the form of propositions which will be the theoretical basis for the algorithms presented in the next sections.
+
 \begin{proposition}
-For every matrix A, $Gr(A)$ is a finite set.
+For every matrix A, $\mathcal{G}(A)$ is a finite set.
 \end{proposition}
+\vspace{-20pt}
+\begin{proof}
+%Gordan's lemma implies that every subset of $\mathbb{Z}^n$ has a finite number of $\sqsubseteq$-minimal elements. This result can be seen in \cite{NAKAB:1986}. 
+Dickson's lemma states that every subset of $\mathbb{N}^n$ has a finite number of minimal elements (with the order $\leq$ componentwise). It's easy to see that this implies that the integral kernel of A (excluding zero) has a finite number of $\sqsubseteq$-minimal elements in every orthant. As the elements in different orthants are not comparable we have that $\mathcal{G}(A)$ is the union of $2^n$ finite sets, concluding the proof.
+\end{proof}
+
+% TODO: Not really true!!
+% Dickson's lemma better? (Shmuel Onn - Convex integer programming - 2007)
 
 \begin{proposition}
-Every integral element in ker(A) can be expressed as positive integral linear combination of elements in $Gr(A)$.
+Every integral element in ker(A) can be expressed as positive integral linear combination of sign compatible elements in $Gr(A)$.
 \end{proposition}
+% TODO: Is it necessary to require them to be sign compatible??
+% TODO: Say that this makes Graver basis be a universal integral test set!
+
 
 \begin{proposition}
 Given z in the feasible region of an IP, z is not optimum if and only if there exists $g \in Gr(A)$ s.t. $c^tg > 0$ and $l \leq z + g \leq u$
 \end{proposition}
+
+\begin{proof}
+Lets suppose first that a feasible point $z$ is not an optimum, then $z^* - z$ belongs to $ker(A)\setminus\{0\}$. Thanks to the previous proposition we have $g_i \in G(A)$, $\alpha_i \geq 0$ s. t. $0 < c^t(z^* - z) = \sum \alpha_i c^t g_i$ and it's then clear that exists at least one $g_i \in G(A)$ verifying $c^tg_i > 0$ and respecting the bounds.
+% TODO: Clarify the respecting the bounds part
+
+For the other implication is clear that $z + g$ is a feasible point which improves the objective function so $z$ is not an optimum. 
+\end{proof}
+
+\section{Graver Basis greedy algorithm}
 
 % TODO: Take references from De Loera et al. 2006!
 \textbf{General IP algorithm using Graver basis}
@@ -54,8 +74,14 @@ Given z in the feasible region of an IP, z is not optimum if and only if there e
 \hspace{15pt} [References??]
 
 % TODO: Problem, requires Graver Basis computation!
+% TODO: Explain that the complexity is polynomial!
 
-\section{Graver Basis $\ell_1$-norm bounds}
+The question that arises now is which is the complexity of this algorithm. \cite{HOW:2009} (Theorem 2.b) states that the number of augmentation steps is polynomial and, since the cost of each augmentation step is in the order of $|G(A)|\times n$, we have that this algorithm is polynomial. Also \cite{LHOW:2006} states this (but the proof is more complicated).
+
+This of course doesn't mean we have a polynomial algorithm for the general IP because the trick is that the Graver Basis is given as part of the input. The problem is of course computing it and, in most of the cases, its size is exponential in the dimension.
+
+
+\section{Graver Basis norm bounds}
 
 \begin{proposition}[\textbf{Graver basis bounds}]
 Given $A \in \mathbb{Z}^{mxn}$ and $\Delta$ an upper bound for the absolute value of each component of $A$, for every $g \in Gr(A)$:
@@ -64,6 +90,8 @@ Given $A \in \mathbb{Z}^{mxn}$ and $\Delta$ an upper bound for the absolute valu
     \item $||g||_1 \leq (2m \Delta + 1)^m$ \hspace{41pt}[Eisenbrand,Hunkenschröder,Klein 2018]
 \end{itemize}
 \end{proposition}
+
+Unfortunately this bounds are both exponential. The second one has the advantage of being n-independent. In certain cases we can get a much tighter bound for the Graver Basis elements and this can help us to get a faster algorithm. The key ideas are the following points.
 
 \textbf{Bases of augmentation algorithm}
 \begin{itemize}
@@ -86,4 +114,4 @@ Given $A \in \mathbb{Z}^{mxn}$ and $\Delta$ an upper bound for the absolute valu
 % TODO: Solution, doesn't require Graver Basis computation
 % TODO: Problem, not good bounds for the general case, no improvement
 
-        
+The main advantage of this algorithm is that it doesn't require the explicit computation of the Graver Basis. However, the main drawback is that in general the bound for the graver bassis elements also increases exponentially with the dimension so this additional restriction to the problem won't be a help.
