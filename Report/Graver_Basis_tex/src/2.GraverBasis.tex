@@ -78,7 +78,6 @@ We can affirm that it's an algorithm, i.e., it finishes in a finite number of st
 % TODO: Improve \cite{...} (Theorem x.y) ??
 The question that arises now is the complexity of this algorithm. It was analyzed in \cite{LHOW:2006} (Theorem 3.3) showing that it's polynomial. This of course doesn't mean we have a polynomial algorithm for the general IP, it means that, given an IP along with its Graver basis, we have a polynomial algorithm in this input size. The complexity of the problem remains in computing the Graver basis which, as we announced, may be exponential. This makes the algorithm non-viable but for small matrices. In the Appendix A we go further to analyze how to compute the Graver basis of a given matrix and we introduce the tool \href{https://4ti2.github.io/}{4ti2}.
 
-% TODO: Putting these together (instead of it's clear then)??
 % TODO: Textbf for the complexity (last sentence) ??
 Another way to estimate the complexity of the algorithm is using \cite{HOW:2009} (Theorem 2.b), which states that the number of augmentation steps is polynomial. Since once obtained the Graver basis the cost of each augmentation step is in the order $n \cdot |\mathcal{G}(A)|$ (search over $\mathcal{G}(A)$), it's clear that the algorithm is polynomial in $n \cdot |\mathcal{G}(A)|$.
 
@@ -99,13 +98,9 @@ Given $A \in \mathbb{Z}^{mxn}$ and $\Delta$ an upper bound for the absolute valu
 
 We refer to \cite{ONN:2010} and \cite{EISENBRAND:2018} for the proof. Note that both bounds are exponential in the number of rows of $A$ but the second one has the advantage of being independent in the number of columns. 
 
-Why should bounds to the Graver bases help? Because thanks to Proposition 2.4, the search of an improvement direction can be restricted to the elements in the Graver basis and, thanks to the bounds, we can restrict our search space without excluding any element of the Graver basis. This is the idea of the following algorithm (see \cite{HEMMECKE:2013}).
+Why should bounds to the Graver bases help? Because thanks to Proposition 2.4, the search of an improvement direction can be restricted to the elements in the Graver basis and, thanks to the bounds, we can restrict our search space without excluding any element of the Graver basis. This is the idea of the following algorithm (see \cite{HEMMECKE:2011}).
 
-%\textbf{Bases of augmentation algorithm}
-%\begin{itemize}
-%    \item If not optimal, an element in Graver basis is an improvement direction.
-%    \item If Graver basis bounded, we can restrict our improvement direction search.
-%\end{itemize}
+% TODO: Maybe here is the place for the first image!
 
 \textbf{General IP algorithm using Graver basis norm bound}
 \vspace{-8pt}
@@ -121,8 +116,6 @@ Why should bounds to the Graver bases help? Because thanks to Proposition 2.4, t
 \end{enumerate}
 %\hspace{15pt} [Hemmecke, Onn, Romanchuk 2013]
 
-% TODO: Solution, doesn't require Graver Basis computation
-% TODO: Problem, not good bounds for the general case, no improvement
 
 As we advanced, the main advantage of this algorithm is that it doesn't require the explicit computation of the Graver Basis. However, the complexity is totally dependent on the added restriction $||g||_1 \leq ||\mathcal{G}(A)||$, and the only bounds we have for the general case are exponential. In this case, the additional restriction to the problem doesn't improves the lower and upper bounds and the complexity is exponential. 
 
