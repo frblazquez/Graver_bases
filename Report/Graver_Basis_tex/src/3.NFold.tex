@@ -26,8 +26,8 @@ statistical databases just to name a few examples beyond the typical in operatio
 
 In any case, the N-Fold IP is interesting by itself since it has good theoretical properties. In the following sections we will study it with the help of Graver bases to finally obtain a roughly linear algorithm for its resolution. We start with the following proposition:
 
-%\section{N-Fold properties}
-
+% PROPERTIES
+% TODO: Cite where do these properties come from!
 \begin{proposition}
 For any $A \in \mathbb{Z}^{r \times t}$ and $B \in \mathbb{Z}^{s \times t}$ and any $n$ there is a polynomial time algorithm in $n$ that computes the Graver basis of the N-Fold matrix $N_{A,B}^{(n)}$. 
 \end{proposition}
@@ -48,15 +48,30 @@ For any $A \in \mathbb{Z}^{r \times t}$ and $B \in \mathbb{Z}^{s \times t}$ and 
 \end{proposition}
 \vspace{-20pt}
 \begin{proof}
+Adding $2n(s+r)$ artificial variables (restricted to be positive, that's why we add $I and -I$) we can construct an N-Fold IP for which an initial feasible solution is trivial for any right side $b$. Applying the two phase method over this gives us the result. 
+
+\begin{equation*}
+N = 
+\setcounter{MaxMatrixCols}{20}
+\begin{pmatrix}
+A & I_s & -I_s & 0 & 0 & A & I_s & -I_s & 0 & 0 & \cdots & A & I_s & -I_s & 0 & 0 \\
+B & 0 & 0 & -I_r & I_r & 0 & 0 & 0 & 0 & 0 & \cdots & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & B & 0 & 0 & -I_r & I_r & \cdots & 0 & 0 & 0 & 0 & 0 \\
+\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots  & \vdots & \vdots & \vdots \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \cdots & B & 0 & 0 & -I_r & I_r 
+\end{pmatrix}
+\end{equation*}
+
 % Two phases! Over a matrix given in \cite{LHOW} lemma 5.2!!
 \end{proof}
 
+% TODO: Not true, not the generalized (yet)!
 \begin{theorem}[\textbf{N-Fold IP is polynomially solvable}]
 Fix any pair of integer matrices A, B of compatible sizes. Then there is a polynomial time algorithm that solves the generalized n-fold integer programming problem on any input n, b, c.
 \end{theorem}
 \vspace{-20pt}
 \begin{proof}
-As we advanced before, thanks to the bound on the cardinality of the  Graver basis of $N_{A,B}^{(n)}$, once we get a feasible point we can apply the algorithm described in Section 2.1 to compute a solution in polynomial time. The previous proposition ensures that this initial feasible point can be computed in polynomial time, therefore, the global algorithm is polynomial.
+As we advanced before, thanks to the bound on the cardinality of the  Graver basis of $N_{A,B}^{(n)}$, once we get a feasible point we can apply the algorithm described in Section 2.1 to compute a solution in polynomial time. The previous proposition ensures that this initial feasible point can also be computed in polynomial time, therefore, the global algorithm is polynomial.
 \end{proof}
 
 % TODO: No clear this part at all!

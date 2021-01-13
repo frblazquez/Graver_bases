@@ -1,6 +1,9 @@
 %\chapter{N-Fold augmentation algorithm} \label{framework}
-\newpage
 \section{N-Fold augmentation algorithm}
+
+% TODO: Generalized N-Fold?
+
+In this section we compute a bound for the $\ell_1$-norm of the elements in the Graver basis of the N-Fold matrix. For this purpose we present the \textit{Steinitz lemma}. We won't prove it but it can be seen in \cite{STEINITZ:1913}.
 
 \begin{lemma}[\textbf{Steinitz Lemma}]
     Let $v_1,...,v_n$ be vectors with $||v_i|| \leq \Delta$ for $i = 1,...,n$. If $\sum_{i=1}^{n} v_i = 0$, then there is a reordering $\pi \in S_n$ such that for each $k \in \{1,...,n\}$ the partial sum $p_k := \sum_{i=1}^{k}v_{\pi(i)}$ satisfies $||p_k|| \leq n\Delta$.
@@ -8,14 +11,36 @@
 
 It's possible (using Steinitz Lemma) to obtain a much tighter bound for the norm of the elements in the Graver basis than the ones mentioned before. This implies a restriction in the space of search for the improvement direction in the augmentation algorithm making it much faster.
 
-% TODO: Proof?
 \begin{lemma}[\textbf{N-Fold Graver basis bound}]
     For all $g \in Gr(N)$ $||g||_1 \leq L_B (2r\Delta L_B + 1)^r =: L_A$ where $L_B = (2s \Delta + 1)^s$
 \end{lemma}
+\vspace{-20pt}
+\begin{proof}
+% TODO: Lemma 3 - IP with block structure, Eisenbrand!
+% TODO: Proof!!!
+\end{proof}
+
+Thank to this bound we can prove this. We won't prove it since we'll see in the next section another version of this algorithm in a more efficient schema. \cite{EISENBRAND:2018} (Lemmas 4 and 5).
+
+% TODO: Bounded algorithm? Improve references inside document!
+\begin{lemma}
+The augmentation step of the bounded algorithm (Section 2.2) can be solved in time $nt(rs\Delta)^{\mathcal{O}(r^2s+rs^2)}$.
+\end{lemma}
+
+The only thing remaining then for determining the complexity is then bound the number of augmentation steps needed for the algorithm to finish. This is provided by the following lemma.
+
+% TODO: Bounded algorithm? Improve references inside document!
+\begin{lemma}
+Consider the bounded algorithm for an N-Fold IP. Let $\Gamma := max_i(u_i - l_i)$. Given an initial feasible solution we can find an optimum solution applying the bounded algorithm, which executes the augmentation step at most $\mathcal{O}(nt log(\Gamma)log(nt\Gamma))$.  
+\end{lemma}
+
+% TODO: Explain we solve first the LP
+This complexity depends on the lower and upper bounds since, at the end of the day, they are restrictions to the feasible region and therefore to the problem's complexity. In \cite{EISENBRAND:2018} they solve this issue by first solving the linear relaxation problem and then creating artificial $l$ and $u$ constraints which, thanks to a proximity bound they prove, keeps at least one optimum.
 
 % TODO: Proof? At least explanation!
+% TODO: LP??   Much to clarify here!
 \begin{lemma}[\textbf{N-Fold augmentation algorithm complexity}]
     The N-Fold IP can be solved in time $(nt)^2 log^2(nt) \cdot \varphi (rs\Delta)^{O(r^2s + rs^2)} + LP$
 \end{lemma}
-\hspace{15pt} [Eisenbrand, Hunkenschröder, Klein 2018]
+%\hspace{15pt} [Eisenbrand, Hunkenschröder, Klein 2018]
         

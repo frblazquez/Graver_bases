@@ -115,6 +115,9 @@
 \usepackage{rotating}
 \usepackage{listings}
 \usepackage{lstpatch}
+\usepackage{pgf, tikz}
+\usetikzlibrary{arrows, automata}
+\usepackage{changepage}
 \lstset{captionpos=b,
         frame=tb,
         basicstyle=\scriptsize\ttfamily,
