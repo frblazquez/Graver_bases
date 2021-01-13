@@ -3,6 +3,18 @@
 
 % TODO: Generalized N-Fold?
 
+A generalized N-Fold IP has constriction matrix A of the form ($A_i \in \mathbb{Z}^{rxt}, B_i \in \mathbb{Z}^{sxt}$):\\
+\begin{equation*}
+N^{(n)} = 
+\begin{pmatrix}
+A_1 & A_2 & \cdots & A_n \\
+B_1 & 0   & \cdots & 0 \\
+0   & B_2 & \cdots & 0 \\
+\vdots    & \vdots & \ddots & \vdots  \\
+0   & 0   & \cdots & B_n 
+\end{pmatrix}
+\end{equation*}
+
 In this section we compute a bound for the $\ell_1$-norm of the elements in the Graver basis of the N-Fold matrix. For this purpose we present the \textit{Steinitz lemma}. We won't prove it but it can be seen in \cite{STEINITZ:1913}.
 
 \begin{lemma}[\textbf{Steinitz Lemma}]
@@ -16,8 +28,17 @@ It's possible (using Steinitz Lemma) to obtain a much tighter bound for the norm
 \end{lemma}
 \vspace{-20pt}
 \begin{proof}
-% TODO: Lemma 3 - IP with block structure, Eisenbrand!
-% TODO: Proof!!!
+Let $y$ be a Graver basis element of $\mathcal{N}$, in coherence with the block decomposition of $\mathcal{N}$ we split it in blocks $y^t = ((y^{(1)})^t, ... , (y^{(n)})^t)$. Since every $y^{(i)} \in ker(B^{(i)}$ we decompose it as the sum of Graver basis elements $y^{(i)} = y^{(i)}_1 +  ... + y^{(i)}_{N_i}$. We have:\\ %then:
+\begin{equation*}
+    0 = A_1y^{(1)} + ... + A_ny^{(n)} = A_1y^{(1)}_1 + ... + A_1y^{(1)}_{N_1} + ... + A_ny^{(n)}_1 + ... + A_ny^{(n)}_{N_n} =: v_1 + ... + v_N % \in \mathbb{Z}^r
+\end{equation*}
+% TODO: Explain the bound on ||v_i||_\infty!
+For $N = \sum_{i=1}^n N_i$ and $||v_i||_\infty \leq \Delta L_B$ for all $i \in \{1, ..., N\}$. Note that $N \leq (2r\Delta L_B + 1)^r$.  At this point we can apply the Steinitz Lemma to reorder the $v_i$ to bound each partial sum by $r\Delta L_B$ in the $l_\infty$ norm.\\
+\begin{equation*}
+    ||y||_1 \leq L_B(2r\Delta L_B + 1)^r = (2s\Delta + 1)^s(2r\Delta (2s\Delta + 1)^s + 1)^r = L_A
+\end{equation*}
+
+%Where $v_i := A_iy^{(i)}_1 + ... + A_iy^{(i)}_{N_i}$. 
 \end{proof}
 
 Thank to this bound we can prove this. We won't prove it since we'll see in the next section another version of this algorithm in a more efficient schema. \cite{EISENBRAND:2018} (Lemmas 4 and 5).
