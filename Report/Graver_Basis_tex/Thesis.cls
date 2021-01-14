@@ -118,6 +118,7 @@
 \usepackage{pgf, tikz}
 \usetikzlibrary{arrows, automata}
 \usepackage{changepage}
+\usepackage[ruled,vlined]{algorithm2e}
 \lstset{captionpos=b,
         frame=tb,
         basicstyle=\scriptsize\ttfamily,

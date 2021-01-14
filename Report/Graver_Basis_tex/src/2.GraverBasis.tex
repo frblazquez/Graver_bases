@@ -1,34 +1,39 @@
-\chapter{Graver bases} \label{literature}
+\chapter{Graver bases} \label{2.Graver_bases}
+\lhead{\emph{Graver bases}}  
 
-\lhead{\emph{Graver bases}}  % Set the left side page header
+% Chapter introduction
+In this chapter we first define formally the Graver basis of a matrix, presenting and proving its main properties. After this, we present two algorithms for the general IP based on these properties, studying their complexity and main limitations. 
 
+% Previous definitions
+% TODO: Maybe remove \mathcal{L}(A) ?
+Before introducing the concept of Graver basis of a matrix, we define the partial order $\sqsubseteq$ in $\mathbb{R}^n$ by $u \sqsubseteq v$ if $u_i \cdot v_i \geq 0$ and $|u_i| \leq |v_i|$ for all i. Note that the condition $u_i \cdot v_i \geq 0$ means that $\sqsubseteq$ can only compare \textit{sign compatible} vectors, i.e., vectors with the same sign componentwise. We also introduce the notation $\mathcal{L}(A)$ for the integral kernel of a matrix excluding zero, i.e., $\mathcal{L}(A) := \{z \in \mathbb{Z}^n: Az = 0, z\neq0\}$.
 
-Before introducing the concept of Graver basis of a matrix, we define a partial order $\sqsubseteq$ in $\mathbb{R}^n$ by $u \sqsubseteq v$ if $u_i \cdot v_i \geq 0$ and $|u_i| \leq |v_i|$ for all i. Note that the condition $u_i \cdot v_i \geq 0$ means that $\sqsubseteq$ can only compare \textit{sign compatible} vectors, i.e., with the same sign componentwise. The Graver basis of a matrix is the set of minimal elements (for this order $\sqsubseteq$) in its integral kernel excluding zero. Formally: 
-
+% GRAVER BASIS OF A MATRIX
 \begin{definition}[\textbf{Graver basis}]
-The Graver basis ($\mathcal{G}(A)$) of a given matrix $A \in \mathbb{Z}^{mxn}$ is defined as the set of $\sqsubseteq$-minimal elements in $\{z \in \mathbb{Z}^n: Az = 0, z\neq0\}$.%$ker(A) \setminus \{0\}$.\\
+The Graver basis $\mathcal{G}(A)$ of a given matrix $A \in \mathbb{Z}^{mxn}$ is defined as the set of $\sqsubseteq$-minimal elements in $\mathcal{L}(A)$.
 \end{definition}
 
 \vspace{-5pt}
-Graver bases were initially defined as \textit{universal integral test set} in \cite{GRAVER:1975} by Jack. E. Graver, in 1975. They often appear also defined in an equivalent way as the nonzero indecomposable elements in $ker(A)$. Indecomposable in the sense that they can not be expressed as the sum of two sign compatible vectors. It's easy to see the equivalence of both definitions.
+Graver bases were initially defined as \textit{universal integral test set} in \cite{GRAVER:1975} by Jack. E. Graver in 1975. They often appear defined in an equivalent way as the nonzero indecomposable elements in $ker(A)$. \emph{Indecomposable} in the sense that they can not be expressed as the sum of two sign compatible vectors. We now study their properties.
 
-Now that Graver bases are formally defined, we present their main properties in the form of propositions which will be the theoretical basis for the algorithms presented in the next sections.
-
-\begin{proposition}
+% Graver basis is a finite set
+\begin{proposition}\label{GB_finite}
 For every matrix A, $\mathcal{G}(A)$ is a finite set.
 \end{proposition}
 \vspace{-20pt}
 \begin{proof}
-Dickson's lemma states that every subset of $\mathbb{N}^n$ has a finite number of minimal elements (with the order $\leq$ componentwise). It's easy to see that this implies that the integral kernel of A (excluding zero) has a finite number of $\sqsubseteq$-minimal elements in every orthant. As the elements in different orthants are not comparable we have that $\mathcal{G}(A)$ is the union of $2^n$ finite sets, concluding the proof.
+Dickson's lemma states that every subset of $\mathbb{N}^n$ has a finite number of minimal elements with the order $\leq$ componentwise. It's easy to see that this implies that $\mathcal{L}(A)$ has a finite number of $\sqsubseteq$-minimal elements in every orthant. As the elements in different orthants are not comparable we have that $\mathcal{G}(A)$ is the union of $2^n$ finite sets, concluding the proof.
 \end{proof}
 
-Unfortunately, the cardinality of $\mathcal{G}(A)$ may be exponential in $n$, the number of columns of $A$. This of course limits the explicit computation and usage of the Graver basis to only certain cases but of course doesn't limit its theoretical properties. The most important of these properties is expressed in the following proposition:
+% But they might grow exponentially
+Unfortunately, the cardinality of $\mathcal{G}(A)$ may be exponential in $n$, the number of columns of $A$. This limits the explicit computation and usage of the Graver basis to only certain cases but doesn't limit its theoretical properties. The most important of these properties is expressed in the following proposition:
 
-\begin{proposition}
+% Graver bases as universal integral test sets
+\begin{proposition}\label{GB_test_set}
 Every integral element in $ker(A)$ can be expressed as positive integral linear combination of sign compatible elements in $\mathcal{G}(A)$.
 \end{proposition}
 \vspace{-20pt}
-% TODO: Review!
+% TODO: REVIEW!
 % TODO: Compare with proof of lemma 4.2 [Onn-Convex_IP-2007]!
 \begin{proof}
 The proof is by induction in the $\ell_1$ norm. For the base case we see that given $u \in \mathbb{Z}^n\cap ker(A)$ such that $||u||_1 = 1$ then $u$ belongs to $\mathcal{G}(A)$ and the result holds.
@@ -44,20 +49,23 @@ This proposition is the reason why Graver bases were introduced as \textit{unive
 
 In the next proposition we see how, thanks to this property, we can do an optimality test for any feasible point using only elements in the Graver basis.
 
-\begin{proposition}
+% Graver bases optimality test
+\begin{proposition}\label{GB_optimality_test}
 Given a feasible point $z$ of the IP, $z$ is not optimum if and only if there exists $g \in \mathcal{G}(A)$ s.t. $c^tg > 0$ and $l \leq z + g \leq u$.
 \end{proposition}
 \vspace{-20pt}
 \begin{proof}
-If there exists $g \in \mathcal{G}(A)$ (therefore $\in ker(A)$) $s.t. c^tg > 0$ is clear that $z + g$ is a feasible point which strictly improves the objective function, so $z$ is not an optimum. 
+If there exists $g \in \mathcal{G}(A)$ such that $c^tg > 0$ is clear that $z + g$ is a feasible point which strictly improves the objective function, so $z$ is not an optimum. 
 
-For the other implication, if z is not an optimum we can take a feasible point $y$ improving $z$, then $y - z$ verifies the hypothesis of the previous proposition so there exist $g_i \in G(A)$, $\alpha_i \geq 0$ s. t. $0 < c^t(y - z) = \sum \alpha_i c^t g_i$ and it's then clear that exists at least one $g_i \in \mathcal{G}(A)$ verifying $c^tg_i > 0$. Finally, thanks of $\alpha_i \geq 0$ and $g_i$ being sign compatible with $y - z$ we have that for all $i$, $l \leq z \leq z + g_i \leq z + \sum \alpha_i g_i = y \leq u$.
+For the other implication, if z is not an optimum we can take a feasible point $y$ improving $z$. Thanks to the previous proposition there exist $g_i \in \mathcal{G}(A)$, $\alpha_i \geq 0$ s. t. $(y - z) = \sum \alpha_i g_i$. Then $0 < c^t(y - z) = \sum \alpha_i c^t g_i$ so at least one $g_i \in \mathcal{G}(A)$ verifying $c^tg_i > 0$. Finally, $z + g_i$ is feasible because thanks to $\alpha_i \geq 0$ and $g_i$ being sign compatible with $y - z$ for all $i$ we have: $l \leq z \leq z + g_i \leq z + \sum \alpha_i g_i = y \leq u$.
 \end{proof}
 
-\section{Graver Basis greedy augmentation algorithm}
+% GRAVER BASIS GREEDY AUGMENTATION ALGORITHM
+\section{Graver basis greedy augmentation algorithm}
 
-We now consider how to solve the general IP with the help of Graver bases. Note that proposition 2.4 doesn't only give us an optimality test but also provide us an improvement direction if the feasible point is not optimal. We can follow that improvement direction to get a better feasible point and then repeat this process. That is the idea of the following procedure (idea introduced in \cite{GRAVER:1975}):
+We now consider how to solve the general IP with the help of Graver bases. Note that proposition \ref{GB_optimality_test} doesn't only give us an optimality test but also provides us an improvement direction if the feasible point is not optimal. We can follow that improvement direction to get a better feasible point and then repeat this process. That is the idea of the following procedure (introduced in \cite{GRAVER:1975}):
 
+\label{GB_greedy_algorithm}
 \textbf{General IP algorithm using Graver basis}
 \vspace{-8pt}
 \begin{enumerate}
@@ -69,24 +77,26 @@ We now consider how to solve the general IP with the help of Graver bases. Note 
         \item $c^tg^* > 0 \implies$ $g^*$ improvement direction, loop back to 1 with:\\ $z_{i+1} = z_i + \lambda \cdot g^*$ with the biggest $\lambda$ respecting the bounds.
     \end{itemize}
 \end{enumerate}
-%\hspace{15pt} [References??]
 
-We can affirm that it's an algorithm, i.e., it finishes in a finite number of steps, thanks to the lower and upper bounds $l$ and $u$. We can assume they are finite and, this way, the objective function is also bounded. Since every iteration we are strictly increasing the objective function, no infinite loop is possible. As is well known, it is always possible to add suitable polynomial upper and lower bounds without excluding some optimal solution if any, so assuming $l$ and $u$ to be finite is no loss of generality.
+% TODO: Reference for the suitable polynomail bounds result!
+Note that the algorithm finishes in a finite number of steps thanks to the lower and upper bounds $l$ and $u$. We can assume the bounds are finite and, this way, the objective function is also bounded. Since every iteration we are strictly increasing the objective function, no infinite loop is possible. As is well known, it is always possible to add suitable polynomial upper and lower bounds without excluding some optimal solution if any, so assuming $l$ and $u$ to be finite is no loss of generality.
 
-% TODO: href style!
-% TODO: Maybe proposition with the complexity ??
-% TODO: Improve \cite{...} (Theorem x.y) ??
-The question that arises now is the complexity of this algorithm. It was analyzed in \cite{LHOW:2006} (Theorem 3.3) showing that it's polynomial. This of course doesn't mean we have a polynomial algorithm for the general IP, it means that, given an IP along with its Graver basis, we have a polynomial algorithm in this input size. The complexity of the problem remains in computing the Graver basis which, as we announced, may be exponential. This makes the algorithm non-viable but for small matrices. In the Appendix A we go further to analyze how to compute the Graver basis of a given matrix and we introduce the tool \href{https://4ti2.github.io/}{4ti2}.
+% Algorithm complexity
+The question that arises now is the complexity of this algorithm. It was analyzed in \cite[Theorem 3.3]{LHOW:2006} showing that it's polynomial. This of course doesn't mean we have a polynomial algorithm for the general IP, it means that, given an IP along with its Graver basis, we have a polynomial algorithm in this input size. The complexity of the problem remains in computing the Graver basis which, as we announced, may be exponential. This makes the algorithm non-viable but for small matrices. 
 
-% TODO: Textbf for the complexity (last sentence) ??
-Another way to estimate the complexity of the algorithm is using \cite{HOW:2009} (Theorem 2.b), which states that the number of augmentation steps is polynomial. Since once obtained the Graver basis the cost of each augmentation step is in the order $n \cdot |\mathcal{G}(A)|$ (search over $\mathcal{G}(A)$), it's clear that the algorithm is polynomial in $n \cdot |\mathcal{G}(A)|$.
+% TODO: If appendix A added, uncomment!
+%In the Appendix A we go further to analyze how to compute the Graver basis of a given matrix and we introduce the tool \href{https://4ti2.github.io/}{4ti2}.
+
+Another way to estimate the complexity of the algorithm is using \cite[Theorem 2.b]{HOW:2009}, which precises that the number of augmentation steps is polynomial. Assuming the Graver basis is given as part of the input, we could solve any augmentation step by iterating over the elements in $\mathcal{G}(A)$, checking the constraints and the objective function, which has complexity $n \cdot |\mathcal{G}(A)|$. Therefore, if the Graver basis is given the algorithm is polynomial in $n \cdot |\mathcal{G}(A)|$.
 
 
+% GRAVER BASIS BOUND AUGMENTATION ALGORITHM
+\section{Graver basis bound augmentation algorithm}
 
-\section{Graver Basis norm bounds}
+Up to this point we have seen how Graver bases allow a straightforward algorithm for the general IP. However, we have also seen that its main drawback is that it requires the explicit computation of the Graver basis. In this section we show how we can avoid computing the Graver basis thanks to bounds on the $\ell_1$-norm of its elements.
 
-Up to this point we have seen how Graver bases allow a straightforward algorithm for the general IP. However, we have seen that its main drawback is that it requires the explicit computation of the Graver basis. In this section we show how we can avoid computing it thanks to bounds on the $\ell_1$-norm of the Graver basis elements.
-
+% Graver basis bounds
+\label{GB_bounds}
 \begin{proposition}[\textbf{Graver basis bounds}]
 Given $A \in \mathbb{Z}^{mxn}$ and $\Delta$ an upper bound for the absolute value of each component of $A$, for every $g \in \mathcal{G}(A)$:
 \vspace{-10pt}
@@ -96,32 +106,28 @@ Given $A \in \mathbb{Z}^{mxn}$ and $\Delta$ an upper bound for the absolute valu
 \end{itemize}
 \end{proposition}
 
-We refer to \cite{ONN:2010} and \cite{EISENBRAND:2018} for the proof. Note that both bounds are exponential in the number of rows of $A$ but the second one has the advantage of being independent in the number of columns. 
+We refer to \cite{ONN:2010} and \cite{EISENBRAND:2018} for the proofs. Note that both bounds are exponential in the number of rows of $A$ but the second one has the advantage of being independent in the number of columns. This will be a key fact in the next chapter.
 
-Why should bounds to the Graver bases help? Because thanks to Proposition 2.4, the search of an improvement direction can be restricted to the elements in the Graver basis and, thanks to the bounds, we can restrict our search space without excluding any element of the Graver basis. This is the idea of the following algorithm (see \cite{HEMMECKE:2011}).
-
-% TODO: Maybe here is the place for the first image!
-% TODO: Definitely it would be nice to add the images!
+% Idea behind the augmentation algorithm
+Why should bounds to the Graver bases help? Because thanks to the proposition \ref{GB_optimality_test}, the search of an improvement direction can be restricted to the elements in the Graver basis and, thanks to the bounds, we can restrict our search space without excluding any element of the Graver basis. This is the idea of the following algorithm \cite{HEMMECKE:2011}:
 
 \vspace{10pt}
 \begin{figure}[h]
 \centering
 \begin{minipage}[b]{0.45\textwidth}
     \centering
-    \includegraphics[width=0.9\textwidth]{images/IP(6).png}
-    % TODO!
-    \caption{Complete this}
+    \includegraphics[width=0.9\textwidth]{images/IP(1).png}
+    \caption{Feasible region}
 \end{minipage}
 \hfill
 \begin{minipage}[b]{0.45\textwidth}
     \centering
-    \includegraphics[width=0.9\textwidth]{images/IP(12).png}
-    % TODO!
-    \caption{Also this}
+    \includegraphics[width=0.9\textwidth]{images/IP.png}
+    \caption{Bounded region}
 \end{minipage}
 \end{figure}
 
-% TODO: I don't like newpage commands! avoid if possible
+% Graver basis bound augmentation algorithm
 \newpage
 \textbf{General IP algorithm using Graver basis norm bound}
 \vspace{-8pt}
@@ -135,9 +141,8 @@ Why should bounds to the Graver bases help? Because thanks to Proposition 2.4, t
         $z_{i+1} = z_i + \lambda \cdot g^*$ with the biggest $\lambda$ respecting the bounds.
     \end{itemize}
 \end{enumerate}
-%\hspace{15pt} [Hemmecke, Onn, Romanchuk 2013]
 
+% Algorithm complexity
+As we advanced, the main advantage of this algorithm is that it doesn't require the explicit computation of the Graver basis. However, the complexity is totally dependent on the added restriction $||g||_1 \leq ||\mathcal{G}(A)||$ and, as we saw in the proposition \ref{GB_bounds}, the only bounds we have for the general case are exponential. This means that for the general IP the lower and upper bounds are much more restrictive than the Graver basis bound and therefore we have to explore the whole feasible region.
 
-As we advanced, the main advantage of this algorithm is that it doesn't require the explicit computation of the Graver Basis. However, the complexity is totally dependent on the added restriction $||g||_1 \leq ||\mathcal{G}(A)||$, and the only bounds we have for the general case are exponential. In this case, the additional restriction to the problem doesn't improves the lower and upper bounds and the complexity is exponential. 
-
-In certain cases we can get a much tighter bound for the Graver Basis elements and this can help us to get a faster algorithm. The N-Fold IP is an iconic example. 
+In certain cases we can get a much tighter bound for the Graver basis elements and this can help us to get a faster algorithm. The N-Fold IP is an iconic example.

@@ -1,33 +1,22 @@
-\chapter{Introduction} \label{introduction}
-
-\lhead{\emph{Introduction}}  % Set the left side page header to "Contents"
-%\rhead{\emph{Introduction}}  % Set the right side page header
+\chapter{Introduction} \label{1.Introduction}
+\lhead{\emph{Introduction}}  
 
 % Present the IP problem
-Hereafter, the underlying problem is the classical \textit{Integer program} (IP), that we formulate in the following way:
+Hereafter, the underlying problem is the classical \textit{Integer Program} (IP), that we formulate in the following way:
 \begin{equation*}
-    % TODO: Maybe call it IP_A(b,c)??
     (IP) \equiv max\{c^tx : Ax = b, l \leq x \leq u, x \in \mathbb{Z}^n \}
 \end{equation*}
 \vspace{-50pt}
 \begin{center}
-$A \in \mathbb{Z}^{mxn}$, $b \in \mathbb{Z}^m$, $c \in \mathbb{Z}^n$, $l$  and $u$ lower and upper bounds for x
+$A \in \mathbb{Z}^{m \times n}$, $b \in \mathbb{Z}^m$, $c \in \mathbb{Z}^n$, $l$  and $u$ lower and upper bounds for $x$
 \end{center}
 
-% Simplicity: Not allowing non-linear restrictions/objective functions
-% Powerful: Lot of applications, many problems admit IP formulation
-% Problem: Is NP-Complete
-% Solution (+-): Techniques for certain IPs, GRAVER BASIS!
-% N-Fold: As a success example
 
-Despite the simplicity of its formulation, allowing only linear constraints and a linear objective function, it's well known the importance of IP. A large number of problems in diverse fields of the mathematics and algorithms (with an infinity of applications) admit an IP formulation. Unfortunately, it's also well known that IP is NP-Complete, what means that no efficient algorithm is likely to exist for solving the IP in the general case. This explains the great interest in restricted formulations of the problem and in certain resolution techniques (even when they can't be applied to the general IP). In the following sections we present the last techniques based on the \textbf{Graver bases} and its bounds as well as their application to the \textbf{N-Fold IP}, a restricted formulation of the IP which has won relevance in the last decades given its theoretical properties and its wide applications. 
+% General introduction
+Despite the simplicity of its formulation, allowing only linear constraints and a linear objective function, the importance of IP is well known . A large number of problems in diverse fields of the mathematics and algorithms with an infinity of applications admit an IP formulation. Unfortunately, it's also well known that integer programming is NP-Complete, what means that no efficient algorithm is likely to exist for solving an IP in the general case. This explains the great interest in restricted formulations of the problem and in certain resolution techniques even when they can't be applied to the general IP. In the following sections we present the latest techniques based on the \textbf{Graver bases} and its bounds as well as their application to the \textbf{N-Fold IP}, a restricted formulation of the IP which has won relevance in the last decades given its theoretical properties and its wide applications. 
 
-% One of this techniques is decomposing the constraint matrix into block structure which has proved useful for IP formulations where this matrix is sparse or has a certain shape.
-
-% TODO: Improve the end of the paragraph!
-For this purpose, we first introduce the Graver basis of a given matrix, explore its properties, bounds, and how can these be applied for solving the general IP. We then study the N-Fold case and show, with the help of Graver bases, that the N-Fold IP can be solved in polynomial time. In the last sections we go further improving this polynomial complexity, obtaining two different efficient algorithms. One based on augmenting a feasible solution and another based on a proximity bound. 
-
-%and show how applying these Graver Basis techniques (and specially its bounds) we can restrict the search of an improvement direction at a feasible point or even directly restrict the search of an optimal solution at a solution of the linear relaxation. All together lead us to a polynomial and efficient algorithm for this kind of problems.
+% Document structure
+For this purpose, in chapter \ref{2.Graver_bases} we introduce the Graver basis of a given matrix, explore its properties, bounds, and how these can be applied for solving the general IP. We then study in chapter \ref{3.N-Fold} the N-Fold case and show, with the help of Graver bases, that the N-Fold IP can be solved in polynomial time, delving into the best known algorithm for this case.
 
 
 % We could add much more here if needed:
@@ -37,11 +26,4 @@ For this purpose, we first introduce the Graver basis of a given matrix, explore
 % Explicit references to N-Fold appearance
 % Explicit general techniques for IP
 % Explicit specific techniques for restricted IP
-
-
-
-
-
-
-
 
