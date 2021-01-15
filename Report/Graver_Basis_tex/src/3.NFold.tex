@@ -1,11 +1,10 @@
-\chapter{N-Fold IP} \label{methodology}
+\chapter{N-Fold IP} \label{3.N-Fold}
+\lhead{\emph{N-Fold IP}}  
 
-\lhead{\emph{N-Fold IP}}  % Set the left side page header to "Contents"
-
-
-A generalized N-Fold IP has constriction matrix A of the form ($A_i \in \mathbb{Z}^{rxt}, B_i \in \mathbb{Z}^{sxt}$):\\
-\begin{equation*}
-N^{(n)} = 
+% N-Fold introduction and notation
+A generalized \emph{N-Fold IP} has constraint matrix A of the form ($A_i \in \mathbb{Z}^{rxt}, B_i \in \mathbb{Z}^{sxt}$):\\
+\begin{equation*} \label{NFold_matrix}
+\mathcal{N} = 
 \begin{pmatrix}
 A_1 & A_2 & \cdots & A_n \\
 B_1 & 0   & \cdots & 0 \\
@@ -16,40 +15,35 @@ B_1 & 0   & \cdots & 0 \\
 \end{equation*}
 
 
-% TODO: Notation!
-% TODO: Tree-fold!
-It was presented in \cite{LHOW:2006} in 2006 in a simplified version in which $\forall i,j$  $A_i = A_j, B_i = B_j$. This simplified N-Fold matrix is totally determined given $A \in \mathbb{Z}^{r \times t}$, $B \in \mathbb{Z}^{s \times t}$ and the order $n$ and we denote it by $N_{A,B}^{(n)}$. Hereafter we'll refer to the generalized formulation as simply the N-Fold IP. 
+It was presented in \cite{LHOW:2006} in 2006 in a simplified version in which $\forall i,j$  $A_i = A_j, B_i = B_j$. This simplified N-Fold matrix is totally determined given $A \in \mathbb{Z}^{r \times t}$, $B \in \mathbb{Z}^{s \times t}$ and the order $n$ and we denote it by $N_{A,B}^{(n)}$. Hereafter, we'll refer to the generalized formulation as \emph{N-Fold IP}. 
 
-% TODO: Better introduction!
-The N-Fold IP has a withe range of applications. In \cite{LHOW:2006} it's applied to the multiway transportation and cutting-stock problems and in \cite{HEMMECKE:2011} to privacy and disclosure control in
-statistical databases just to name a few examples beyond the typical in operations research. In fact, the N-Fold IP is universal. Every IP can be expressed as an N-Fold IP. This is because, as shown in \cite{LO:2006}, every IP can be modeled as a slim 3-way transportation program, which can be expressed as an N-Fold IP. However, this is more a theoretical achievement which shows the expressiveness power of the N-Fold rather than a useful practical approach for solving any IP. 
+% N-Fold relevance
+The \emph{N-Fold IP} has a wide range of applications. In \cite{LHOW:2006} it's applied to the multiway transportation and cutting-stock problems and in \cite{HEMMECKE:2011} to privacy and disclosure control in
+statistical databases just to name a few examples beyond the typical in operations research. In fact, the \emph{N-Fold IP} is universal. Every IP can be expressed as an \emph{N-Fold IP}. This is because, as shown in \cite{LO:2006}, every IP can be modeled as a slim 3-way transportation program, which can be expressed as an \emph{N-Fold IP}. However, this is more a theoretical achievement which shows the expressiveness power of the N-Fold rather than a useful practical approach for solving any IP. 
 
-In any case, the N-Fold IP is interesting by itself since it has good theoretical properties. In the following sections we will study it with the help of Graver bases to finally obtain a roughly linear algorithm for its resolution. We start with the following proposition:
+In any case, the \emph{N-Fold IP} is interesting by itself since it has good theoretical properties. In the following sections we will study it with the help of Graver bases to finally obtain a roughly linear algorithm for its resolution. We start with the following proposition:
 
 % PROPERTIES
-% TODO: Cite where do these properties come from!
-\begin{proposition}
-For any $A \in \mathbb{Z}^{r \times t}$ and $B \in \mathbb{Z}^{s \times t}$ and any $n$ there is a polynomial time algorithm in $n$ that computes the Graver basis of the N-Fold matrix $N_{A,B}^{(n)}$. 
-\end{proposition}
+% N-Fold graver basis is polynomial
+\begin{theorem} \label{Nfold_GB_computation_polynomial}
+For any $A \in \mathbb{Z}^{r \times t}$ and $B \in \mathbb{Z}^{s \times t}$ and $n$ there is an algorithm polynomial in $n$ that computes the Graver basis of the N-Fold matrix $N_{A,B}^{(n)}$. 
+\end{theorem}
 \vspace{-10pt}
 
-% TODO: Format for this paragraph!
-Again, we refer to Apendix A for more details about Graver bases computation. We won't go into the details of the proof of this proposition, they can be seen in \cite{LHOW:2006} (Theorem 4.2). However, we consider important to remark that this proposition implies that the cardinality of $\mathcal{G}(A)$ is bounded by a polynomial function of n.
+% TODO: Add if at the end the appendix is added!
+%Again, we refer to Apendix A for more details about Graver bases computation. 
+We won't go into the details of the proof of this proposition, they can be seen in \cite[Theorem 4.2]{LHOW:2006}. However, we consider important to remark that this proposition implies that the cardinality of $\mathcal{G}(N_{A,B}^{(n)})$ is bounded by a polynomial function of n.
 
-This has an important consequence, the greedy Graver basis augmentation algorithm presented before has, in this case, polynomial complexity for every augmentation step and therefore polynomial complexity. However it's still remaining the problem of obtaining an initial feasible solution, that is precisely what solves the next proposition.
+This has an important consequence, the greedy Graver basis augmentation algorithm presented before has, in this case, polynomial complexity for every augmentation step and therefore polynomial complexity. However it's still remaining the problem of obtaining an initial feasible solution. That is precisely what solves the next proposition:
 
-%\begin{proposition}
-%Fix any pair of integer matrices $A \in \mathbb{Z}^{r \times q}$ and $B \in \mathbb{Z}^{s \times q}$. Then there is a polynomial time algorithm that, given n, objective vector $c \in \mathbb{Z}^{nq}$, and non-negative integer vector $x \in \mathbb{Z}^{nq}$ , solves the generalized N-Fold integer programming problem in which x is feasible.
-%\end{proposition}
-
-% TODO: Proof for this proposition??
-\begin{proposition}
-For any $A \in \mathbb{Z}^{r \times t}$ and $B \in \mathbb{Z}^{s \times t}$ and any $n$ there is a polynomial time algorithm in $n$ that, given a  demand vector $b \in \mathbb{Z}^{s + nr}$, either finds a feasible point $x \in \mathbb{N}^{nq}$ to the N-Fold IP of order n, or asserts that no feasible solution exists.
-\end{proposition}
-\vspace{-20pt}
+% Two phase method for N-Fold
+\begin{lemma} \label{Nfold_two_phase}
+For any $A \in \mathbb{Z}^{r \times t}$ and $B \in \mathbb{Z}^{s \times t}$ and $n$ there is an algorithm polynomial in $n$ that, given a  demand vector $b \in \mathbb{Z}^{s + nr}$, either finds a feasible point $x \in \mathbb{Z}^{nt}$ to the simplified \emph{N-Fold IP} of order n, or asserts that no feasible solution exists.
+\end{lemma}
+\vspace{-15pt} % TODO: Should be 20
 \begin{proof}
-Adding $2n(s+r)$ artificial variables (restricted to be positive, that's why we add $I and -I$) we can construct an N-Fold IP for which an initial feasible solution is trivial for any right side $b$. Applying the two phase method over this gives us the result. 
-
+This is a result proved in \cite[Lemma 5.2]{LHOW:2006}. The idea is that we can add $2n(s+r)$ artificial variables to construct an \emph{N-Fold IP} for which an initial feasible solution is trivial for any right side $b$. The constraint matrix would result as below: 
+\vspace{5pt}
 \begin{equation*}
 N = 
 \setcounter{MaxMatrixCols}{20}
@@ -62,16 +56,16 @@ B & 0 & 0 & -I_r & I_r & 0 & 0 & 0 & 0 & 0 & \cdots & 0 & 0 & 0 & 0 & 0 \\
 \end{pmatrix}
 \end{equation*}
 
-% Two phases! Over a matrix given in \cite{LHOW} lemma 5.2!!
+This way the result is obtained applying the \textit{two phase method} which, thanks to the previous proposition, runs in polynomial time. Note that we need to add $I$ and $-I$ terms because the artificial variables have to be positive.
+\vspace{5pt}
 \end{proof}
 
-% TODO: Not true, not the generalized (yet)!
-\begin{theorem}[\textbf{N-Fold IP is polynomially solvable}]
-Fix any pair of integer matrices A, B of compatible sizes. Then there is a polynomial time algorithm that solves the generalized n-fold integer programming problem on any input n, b, c.
+\begin{theorem}[\textbf{Simplified N-Fold IP is polynomially solvable}]
+Fix any pair of integer matrices $A \in \mathbb{Z}^{r \times t}$ and $B \in \mathbb{Z}^{s \times t}$. Then there is a polynomial time algorithm that solves the simplified N-Fold integer programming problem on any input n, b, c.
 \end{theorem}
-\vspace{-20pt}
+\vspace{-15pt} % TODO: Should be 20
 \begin{proof}
-As we advanced before, thanks to the bound on the cardinality of the  Graver basis of $N_{A,B}^{(n)}$, once we get a feasible point we can apply the algorithm described in Section 2.1 to compute a solution in polynomial time. The previous proposition ensures that this initial feasible point can also be computed in polynomial time, therefore, the global algorithm is polynomial.
+Propositions \ref{Nfold_GB_computation_polynomial} and \ref{Nfold_two_phase} ensure that we can compute the  Graver basis of $N_{A,B}^{(n)}$ and a initial feasible point in polynomial time for any $n$, $b$ and $c$. Applying the algorithm \ref{GB_greedy_algorithm} after this solves the problem in global polynomial time.
 \end{proof}
 
-% TODO: No clear this part at all!
+% TODO: Maybe too much blank space here!

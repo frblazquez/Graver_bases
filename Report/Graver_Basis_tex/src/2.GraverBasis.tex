@@ -10,7 +10,7 @@ Before introducing the concept of Graver basis of a matrix, we define the partia
 
 % GRAVER BASIS OF A MATRIX
 \begin{definition}[\textbf{Graver basis}]
-The Graver basis $\mathcal{G}(A)$ of a given matrix $A \in \mathbb{Z}^{mxn}$ is defined as the set of $\sqsubseteq$-minimal elements in $\mathcal{L}(A)$.
+The Graver basis $\mathcal{G}(A)$ of a given matrix $A \in \mathbb{Z}^{m \times n}$ is defined as the set of $\sqsubseteq$-minimal elements in $\mathcal{L}(A)$.
 \end{definition}
 
 \vspace{-5pt}
@@ -33,12 +33,10 @@ Unfortunately, the cardinality of $\mathcal{G}(A)$ may be exponential in $n$, th
 Every integral element in $ker(A)$ can be expressed as positive integral linear combination of sign compatible elements in $\mathcal{G}(A)$.
 \end{proposition}
 \vspace{-20pt}
-% TODO: REVIEW!
-% TODO: Compare with proof of lemma 4.2 [Onn-Convex_IP-2007]!
 \begin{proof}
-The proof is by induction in the $\ell_1$ norm. For the base case we see that given $u \in \mathbb{Z}^n\cap ker(A)$ such that $||u||_1 = 1$ then $u$ belongs to $\mathcal{G}(A)$ and the result holds.
+The proof is by induction on the well partial order $\sqsubseteq$. For the base case we see that given $u \in \mathcal{L}(A)$ minimal then $u$ belongs to $\mathcal{G}(A)$ and the result holds.
 
-For the induction case lets suppose the result is given up to k and take $u \in \mathbb{Z}^n\cap ker(A)$ such that $||u||_1 = k$. Again, if $u$ is minimal in $\mathbb{Z}^n\cap ker(A) \setminus \{0\}$ the result is clear so let's suppose this is not the case. Therefore it exists $u_1$ s.t. $u_1 \sqsubseteq u, u_1 \neq u$. We take $u_2 = u - u_1$. Note that thanks to the definition of $\sqsubseteq$ $u$, $u_1$ and $u_2$ are sign compatible and thanks to $u \neq u_1$ necessarily  $||u_1||_1,||u_2||_1 \leq k$. With this appreciations, the proof concludes after applying the induction hypothesis:\\
+For the induction case lets take $u \in \mathcal{L}(A)$ not $\sqsubseteq$-minimal. Therefore it exists $u_1$ s.t. $u_1 \sqsubseteq u, u_1 \neq u$. We take $u_2 = u - u_1$. Note that thanks to the definition of $\sqsubseteq$ $u$, $u_1$ and $u_2$ are sign compatible and thanks to $u \neq u_1$ necessarily  $u_1,u_2 \sqsubset u$. With this appreciations, the proof concludes after applying the induction hypothesis:\\
 \vspace{-30pt}
 \begin{center}
     $u = u_1 + u_2 = \sum \alpha_{1i}g_{1i} + \sum \alpha_{2i}g_{2i} = \sum \alpha_{j}g_{j}$
@@ -58,6 +56,7 @@ Given a feasible point $z$ of the IP, $z$ is not optimum if and only if there ex
 If there exists $g \in \mathcal{G}(A)$ such that $c^tg > 0$ is clear that $z + g$ is a feasible point which strictly improves the objective function, so $z$ is not an optimum. 
 
 For the other implication, if z is not an optimum we can take a feasible point $y$ improving $z$. Thanks to the previous proposition there exist $g_i \in \mathcal{G}(A)$, $\alpha_i \geq 0$ s. t. $(y - z) = \sum \alpha_i g_i$. Then $0 < c^t(y - z) = \sum \alpha_i c^t g_i$ so at least one $g_i \in \mathcal{G}(A)$ verifying $c^tg_i > 0$. Finally, $z + g_i$ is feasible because thanks to $\alpha_i \geq 0$ and $g_i$ being sign compatible with $y - z$ for all $i$ we have: $l \leq z \leq z + g_i \leq z + \sum \alpha_i g_i = y \leq u$.
+
 \end{proof}
 
 % GRAVER BASIS GREEDY AUGMENTATION ALGORITHM
@@ -65,8 +64,8 @@ For the other implication, if z is not an optimum we can take a feasible point $
 
 We now consider how to solve the general IP with the help of Graver bases. Note that proposition \ref{GB_optimality_test} doesn't only give us an optimality test but also provides us an improvement direction if the feasible point is not optimal. We can follow that improvement direction to get a better feasible point and then repeat this process. That is the idea of the following procedure (introduced in \cite{GRAVER:1975}):
 
-\label{GB_greedy_algorithm}
-\textbf{General IP algorithm using Graver basis}
+
+\textbf{General IP algorithm using Graver basis} \label{GB_greedy_algorithm}
 \vspace{-8pt}
 \begin{enumerate}
     \item From a feasible solution $z_i$
@@ -129,6 +128,7 @@ Why should bounds to the Graver bases help? Because thanks to the proposition \r
 
 % Graver basis bound augmentation algorithm
 \newpage
+\label{GB_bound_algorithm}
 \textbf{General IP algorithm using Graver basis norm bound}
 \vspace{-8pt}
 \begin{enumerate}
