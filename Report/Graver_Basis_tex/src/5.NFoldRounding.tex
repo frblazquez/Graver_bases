@@ -32,29 +32,33 @@ The classical linear relaxation (LR) is obtained by only removing the $y \in \ma
 \end{minipage}
 \end{figure}
 
-Solving the restricted linear relaxation problem is not an easy task in practice. It was proved in \cite{EISENBRAND:2020} by applying the ellipsoid method that it can be solved in linear time (ignoring logarithmic factors). We won't go into details of the proof here. 
+Solving the restricted linear relaxation problem is not an easy task in practice. It was proved in \cite{EISENBRAND:2020} by applying the \emph{ellipsoid method} that it can be solved in linear time (ignoring logarithmic factors). We won't go into details of the proof here. In the following lemma and in the next ones, $\varphi$ denotes the maximum encoding length of the input and $p$ a polynomial.
 
 \begin{lemma}[\textbf{N-Fold RLR complexity}]
     The N-Fold IP restricted linear relaxation problem can be solved in time
+    \vspace{-5pt}
     \begin{equation*}
         O(nt \cdot log^2(nt) \cdot \varphi p(r) (s\Delta)^{O(s^2)})
     \end{equation*}
 \end{lemma}
 
+\vspace{-5pt}
 As in the previous algorithm, solving this RLR will be the first step. We can see that the complexity of this first step has slightly increased. However, this algorithm will be more efficient thanks to the following result \cite[Section 3]{EISENBRAND:2020}:
 
 \begin{lemma}[\textbf{N-Fold proximity to RLR}]\label{NFold_proximity_bound}
     Let $x^*$ be an optimal vertex solution of a N-Fold RLR, then there exists an optimal solution $z^*$ for the N-Fold IP verifying:  
+    \vspace{-5pt}
     \begin{equation*}
         ||z^* - x^*||_1 \leq (rs\Delta)^{O(rs)}
     \end{equation*}
 \end{lemma}
 
+\vspace{-5pt}
 Note that, unlike the proximity bound to the LR, which was linear in the number of variables, once fixed the order of the matrices $A_i$ and $B_i$ (parameters $r$ and $s$) the bound is constant. This, together with the dynamic program we present below, is the reason of success of our algorithm.
 
 \subsection{Dynamic program}        
 
-We present in this section the second and last step of our algorithm. A program which takes an optimal solution of the restricted linear relaxation and finds an optimal solution of the \emph{N-Fold IP}. The idea behind this program \cite{EISENBRAND:2020} is creating a weighted directed acyclic graph in which a longest path between two specific vertices corresponds to an optimal solution. Then, using dynamic programming we can compute a longest path in a directed acyclic graph in linear time in the number of nodes and edges.
+We present in this section the second and last step of our algorithm. A program which takes an optimal solution of the restricted linear relaxation and finds an optimal solution of the \emph{N-Fold IP}. The idea behind this program \cite{EISENBRAND:2020} is creating a weighted directed acyclic graph in which a longest path between two specific vertices corresponds to an optimal solution. Then, using dynamic programming we can compute a longest path in a directed acyclic graph in linear time in the number of nodes and edges. This is also the program used for proving the lemma \ref{NFold_augmentation_step_complexity}.
 
 \begin{proposition}[\textbf{N-Fold RLR to optimum complexity}]
     Given an optimal vertex of an N-Fold RLR, the N-Fold IP can be solved in time
@@ -239,14 +243,9 @@ Analogously we prove that given any path path from $(0,0)$ to $(n,b_0)$ there ex
 
 Having both inequalities, it's clear that the longest path cost is equal to the optimal solution of the \emph{N-Fold IP}. 
 
-The complexity of the algorithm is an immediate consequence of the following points:
-\vspace{-30pt}
-\begin{itemize}
-    \item $|S_l| \leq (rs\Delta)^{O(r^2s)}$
-    \item $|V| + |E| \leq O(n(rs\Delta)^{O(r^2s)})$
-    \item The edge IP can be computed in time $t((r + s)\Delta)^{O(r + s)^2}$
-    \item Longest path problem in a acyclic digraph can be solved in linear time.
-\end{itemize}
+Finally, the complexity of the algorithm is the complexity of first constructing the graph and then applying the longest path dynamic program. Note that, as $S_\ell$ is defined from a bound for the $\infty$-norm, $|S_l| \leq (rs\Delta)^{O(r^2s)}$. This easily implies, given the structure of the graph, that $|V| + |E| \leq O(n(rs\Delta)^{O(r^2s)})$. Note also that $EP_\ell$ can be solved in time $t((r + s)\Delta)^{O(r + s)^2}$ since it's an IP with $t$ variables and $(r+s)$ constraints. 
+
+Putting all these together we get that we can build the graph in $O(nt(rs\Delta)^{O(r^2s + s^2)})$ by solving $EP_\ell$ for each edge and then apply the dynamic program for finding a longest path in $O(n(rs\Delta)^{O(r^2s)})$, finishing the proof.
 \end{proof}
 
 We end up with the following result which summarizes the complexity of the algorithm presented to the \emph{N-Fold IP} based on the proximity bound \ref{NFold_proximity_bound}.

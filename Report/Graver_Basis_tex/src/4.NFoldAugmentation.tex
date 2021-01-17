@@ -9,7 +9,7 @@ In this section we present a quadratic algorithm for the generalized \emph{N-Fol
     Let $v_1,...,v_n$ be vectors with $||v_i|| \leq \Delta$ for $i = 1,...,n$. If $\sum_{i=1}^{n} v_i = 0$, then there is a reordering $\pi \in S_n$ such that for each $k \in \{1,...,n\}$ the partial sum $p_k := \sum_{i=1}^{k}v_{\pi(i)}$ satisfies $||p_k|| \leq n\Delta$.
 \end{lemma}
 
-The Steinitz lemma has proven to be a very useful tool when it comes to the \emph{N-Fold IP}. It's one of the main components behind the following results. Before moving to the next one, we clarify the notation used. Hereafter, $\mathcal{N}$ will denote the \emph{generaliced N-Fold} matrix as in \ref{NFold_matrix}, $n$ will denote its order and $\Delta := ||\mathcal{N}||_\infty$. 
+The Steinitz lemma has proven to be a very useful tool when it comes to the \emph{N-Fold IP}. It's one of the main components behind the following results. Before moving to the next one, we clarify the notation used. Hereafter, $\mathcal{N}$ will denote the \emph{generalized N-Fold} matrix as in \ref{NFold_matrix}, $n$ will denote its order and $\Delta := ||\mathcal{N}||_\infty$. 
 
 % TODO: Proof!!
 \begin{lemma}[\textbf{N-Fold Graver basis bound}]
@@ -21,7 +21,7 @@ Let $y$ be a Graver basis element of $\mathcal{N}$, in coherence with the block 
 \begin{equation*}
     0 = A_1y^{(1)} + ... + A_ny^{(n)} = A_1y^{(1)}_1 + ... + A_1y^{(1)}_{N_1} + ... + A_ny^{(n)}_1 + ... + A_ny^{(n)}_{N_n} =: v_1 + ... + v_N % \in \mathbb{Z}^r
 \end{equation*}
-Where $N = \sum_{i=1}^n N_i$. Note now that $y^{(i)}_j \leq L_B$  and then $||v_i||_\infty = ||A_kv^{(k)}_j||_\infty \leq \Delta L_B$ for all $i \in \{1, ..., N\}$. This implies that $N \leq (2r\Delta L_B + 1)^r$ because all the $v_i$ have to be distinct or $y$ wouldn't be minimal.  At this point we can apply the Steinitz Lemma to reorder the $v_i$ to bound each partial sum by $r\Delta L_B$ in the $l_\infty$ norm. Finally, as each $v_i$ is the sum of at most $L_B$ columns of some $A^{(j)}$ we have:\\
+Where $N = \sum_{i=1}^n N_i$. Note now that $y^{(i)}_j \leq L_B$  and then $||v_i||_\infty = ||A_ky^{(k)}_j||_\infty \leq \Delta L_B$ for all $i \in \{1, ..., N\}$. This bound for the infinity norm implies that $N \leq (2r\Delta L_B + 1)^r$ because all the $v_i$ have to be distinct or $y$ wouldn't be minimal.  At this point we can apply the Steinitz Lemma to reorder the $v_i$ to bound each partial sum by $r\Delta L_B$ in the $l_\infty$ norm. Finally, as $ v_i = A_ky^{(k)}_j$ and $||y^{(k)}_j||_1 \leq L_B$ each $v_i$ is the sum of at most $L_B$ columns of some $A_k$ and we have:\\
 \begin{equation*}
     ||y||_1 \leq L_B(2r\Delta L_B + 1)^r = (2s\Delta + 1)^s(2r\Delta (2s\Delta + 1)^s + 1)^r = L_A
 \end{equation*}
@@ -37,7 +37,7 @@ The augmentation step of the algorithm \ref{GB_bound_algorithm} for the N-Fold I
 
 We'll see a dynamic program for solving the augmentation step in the next section, as part of the best algorithm known for the \emph{N-Fold IP}. We postpone the proof of this lemma until then.
 
-It's only remaining to bound the number of augmentation steps needed for the algorithm to finish to have it's complexity. This is provided by the following lemma.
+It's only remaining to bound the number of augmentation steps needed by the algorithm to finish to have it's complexity. This is provided by the following lemma.
 
 \begin{lemma}
 For an N-Fold IP let $\Gamma := max_i(u_i - l_i)$. Given an initial feasible point the algorithm \ref{GB_bound_algorithm}  reaches an optimum solution by solving the augmentation step at most $\mathcal{O}(nt log(\Gamma)(log(nt\Gamma)+\varphi)$ times, where $\varphi$ is the maximum encoding length of the input.  
@@ -46,7 +46,7 @@ For an N-Fold IP let $\Gamma := max_i(u_i - l_i)$. Given an initial feasible poi
 This complexity depends on the lower and upper bounds since, at the end of the day, they are restrictions to the feasible region and therefore to the problem's complexity. In total, ignoring the encoding lengths, the algorithm \ref{GB_bound_algorithm} has a running time in $\mathcal{O}(n^2t^2 log(\Gamma)log(nt\Gamma)(rs\Delta)^{\mathcal{O}(r^2s+rs^2)})$, roughly quadratic in the number of variables.
 
 
-As seen in \cite{EISENBRAND:2018}, we can avoid the dependency with the lower and upper bounds by starting the algorithm \ref{GB_bound_algorithm} not from an arbitrary feasible point, but from one ``close" to the optimum. We first solve the linear relaxation problem and then start from the closest integral feasible point to this solution. The following proximity bound lets us to create artificial $l$ and $u$ constraints which are independent of the ones given.
+We can avoid the dependency with the lower and upper bounds by starting the algorithm \ref{GB_bound_algorithm} not from an arbitrary feasible point, but from one ``close" to the optimum. We first solve the linear relaxation problem and then start from the closest integral feasible point to this solution. The following proximity bound allows us to create artificial $l$ and $u$ constraints which are independent of the ones given.
 
 \begin{lemma}
 Given an N-Fold IP $\mathcal{N}$, let $x^*$ be an optimum solution to its linear relaxation. Then, there exists an optimum integral

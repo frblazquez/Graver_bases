@@ -26,21 +26,19 @@ In any case, the \emph{N-Fold IP} is interesting by itself since it has good the
 % PROPERTIES
 % N-Fold graver basis is polynomial
 \begin{theorem} \label{Nfold_GB_computation_polynomial}
-For any $A \in \mathbb{Z}^{r \times t}$ and $B \in \mathbb{Z}^{s \times t}$ and $n$ there is an algorithm polynomial in $n$ that computes the Graver basis of the N-Fold matrix $N_{A,B}^{(n)}$. 
+Fixed any $A \in \mathbb{Z}^{r \times t}$ and $B \in \mathbb{Z}^{s \times t}$, there is an algorithm polynomial in $n$ that computes the Graver basis of the N-Fold matrix $N_{A,B}^{(n)}$. 
 \end{theorem}
 \vspace{-10pt}
 
-% TODO: Add if at the end the appendix is added!
-%Again, we refer to Apendix A for more details about Graver bases computation. 
-We won't go into the details of the proof of this proposition, they can be seen in \cite[Theorem 4.2]{LHOW:2006}. However, we consider important to remark that this proposition implies that the cardinality of $\mathcal{G}(N_{A,B}^{(n)})$ is bounded by a polynomial function of n.
+We won't go into the details of the proof of this proposition, they can be seen in \cite[Theorem 4.2]{LHOW:2006}. However, we consider important to remark that this proposition implies that, fixed $A$ and $B$, the cardinality of $\mathcal{G}(N_{A,B}^{(n)})$ is bounded by a polynomial function of $n$.
 
 This has an important consequence, the greedy Graver basis augmentation algorithm presented before has, in this case, polynomial complexity for every augmentation step and therefore polynomial complexity. However it's still remaining the problem of obtaining an initial feasible solution. That is precisely what solves the next proposition:
 
 % Two phase method for N-Fold
 \begin{lemma} \label{Nfold_two_phase}
-For any $A \in \mathbb{Z}^{r \times t}$ and $B \in \mathbb{Z}^{s \times t}$ and $n$ there is an algorithm polynomial in $n$ that, given a  demand vector $b \in \mathbb{Z}^{s + nr}$, either finds a feasible point $x \in \mathbb{Z}^{nt}$ to the simplified \emph{N-Fold IP} of order n, or asserts that no feasible solution exists.
+Fixed any $A \in \mathbb{Z}^{r \times t}$ and $B \in \mathbb{Z}^{s \times t}$, there is an algorithm polynomial in $n$ that, given a  demand vector $b \in \mathbb{Z}^{s + nr}$, either finds a feasible point $x \in \mathbb{Z}^{nt}$ to the simplified \emph{N-Fold IP} of order n, or asserts that no feasible solution exists.
 \end{lemma}
-\vspace{-15pt} % TODO: Should be 20
+\vspace{-15pt} 
 \begin{proof}
 This is a result proved in \cite[Lemma 5.2]{LHOW:2006}. The idea is that we can add $2n(s+r)$ artificial variables to construct an \emph{N-Fold IP} for which an initial feasible solution is trivial for any right side $b$. The constraint matrix would result as below: 
 \vspace{5pt}
